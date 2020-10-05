@@ -42,5 +42,6 @@ int main()
     else{
         std::cout << "Discriminant < 0. The equation does not have solutions." << std::endl;
     }
-
+	
+	return 0;
 }
