@@ -1,8 +1,7 @@
 #include <iostream>
 #include <cmath>
 
-int main()
-{
+int main(){
     short a{};
     short b{};
     short c{};
@@ -14,7 +13,9 @@ int main()
     bool c_range{false};
     int atmpts{3};
 
-    std::cout << "Enter three numbers in range 2...255 separated by space in order a b c.\nIf value is empty leave 0." << std::endl;
+    std::cout << "Enter three numbers in range 2...255 separated by space "
+				 "in order a b c.\nIf value is empty leave 0." 
+		      << std::endl;
 
     while (atmpts) {
         std::cin >> a >> b >> c;
