@@ -6,10 +6,8 @@
 // UTF-8
 // void
 int main(int argc, char const *argv[]) {
-  int count{};
 
   int value{3};
-  long long res = ++count + value++;
 
   if (true) {
     value = 100;
