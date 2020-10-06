@@ -8,7 +8,7 @@ constexpr int MULTIPLIER{4};
 char          name = {'A'};
 double        coefficient [3]{};
 
-#define       ARRAY_LEN(x) ( sizeof( coefficient ) / sizeof( coefficient[0] ) )
+#define       ARRAY_LEN(x) ( sizeof( x ) / sizeof( x[0] ) )
 
 #define A     coefficient [0]
 #define B     coefficient [1]
@@ -43,7 +43,7 @@ int main (void) {
     } else if (D == 0) {
         auto x = (-B) / (POWER * A);
         std::cout<<"x = "<<x<<std::endl;
-    } else if ( (D < 0) || (D == NAN) || (D == -NAN)) {
+    } else {
          std::cout<<"No roots!"<<std::endl;
     }
 
