@@ -4,9 +4,8 @@
 constexpr int val1 = 4;
 constexpr int val2 = 2;
 
-void quadr_equation(
-    double a, double b,
-    double c) { //функция для вычиления корней квадратного уравнения
+ //функция для вычиления корней квадратного уравнения
+void quadr_equation( double a, double b, double c) { 
   if (a == 0) {
     std::cout << "деление на ноль\n";
     return;
@@ -20,8 +19,7 @@ void quadr_equation(
   auto x1 = (-b + sqrt(b * b - val1 * a * c)) / (val2 * a);
   auto x2 = (-b - sqrt(b * b - val1 * a * c)) / (val2 * a);
 
-  std::cout << "Для квадратного уравнения " << a << "x^2+" << b << "x+" << c
-            << "=0\n"
+  std::cout << "Для квадратного уравнения " << a << "x^2+" << b << "x+" << c ="0\n"
             << "x1=" << x1 << "   x2=" << x2 << '\n';
 }
 
