@@ -28,7 +28,7 @@ int main() {
       std::cout << "Incorrectly!\n";
     trying++;
   }
-
+  // основная фукнция подсчета
   if (trying <= attemtps)
 
   {
