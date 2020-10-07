@@ -42,11 +42,11 @@ int main() {
   if (attemptsCounter < numberOfAttempts) {
     auto discriminant = b * b - dividendMultiply * a * c;
     if (discriminant > 0) {
-      auto x1 = (-b + sqrt(discriminant)) / (dividerMultiply * a);
-      auto x2 = (-b - sqrt(discriminant)) / (dividerMultiply * a);
+      auto x1 = (static_cast<int16_t>(-b) + sqrt(discriminant)) / (dividerMultiply * a);
+      auto x2 = (static_cast<int16_t>(-b) - sqrt(discriminant)) / (dividerMultiply * a);
       std::cout << "x1 = " << x1 << ", x2 = " << x2 << std::endl;
     } else if (discriminant == 0) {
-      auto x1 = -b / (dividerMultiply * a);
+      auto x1 = static_cast<int16_t>(-b) / (dividerMultiply * a);
       std::cout << "x1 = x2 = " << x1 << std::endl;
     } else
       std::cout << "Discriminant is less than 0." << std::endl;
