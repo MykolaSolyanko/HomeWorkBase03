@@ -32,7 +32,7 @@ int main() {
   if (trying <= attemtps)
 
   {
-    auto discrim = b * b - 4 * a * c;
+    auto discrim = b * b - four * a * c;
     if (discrim < 0)
       std::cout << "No roots!\n";
 
