@@ -1,0 +1,53 @@
+#include <cmath>
+#include <iostream>
+#include <limits>
+#include <string>
+
+double dGetValue(const char in_ccValueName) {
+  constexpr double cdMIN{2.0};
+  constexpr double cdMAX{255.0};
+  std::string sInData{};
+  double dRes{};
+  while (1) {
+    std::cout << "Please enter number in range [2...255] for coefficient "
+              << in_ccValueName << ':';
+
+    try {
+      std::getline(std::cin, sInData);
+      dRes = std::stod(sInData);
+      if ((dRes < cdMIN) || (dRes > cdMAX))
+        throw 1;
+      break;
+    } catch (...) {
+      std::cout
+          << "You entered an incorrect number, try entering the number again";
+    }
+  }
+  return dRes;
+}
+
+int main(int argc, char *argv[]) {
+  double dA{};
+  double dB{};
+  double dC{};
+
+  constexpr double cdTWO{2.0};
+  constexpr double cdFOUR{4.0};
+
+  dA = dGetValue('A');
+  dB = dGetValue('B');
+  dC = dGetValue('C');
+
+  double dDiskriminant{dB * dB - cdFOUR * dA * dC};
+  if (dDiskriminant < 0) {
+    std::cout << "No answer in this equation \n";
+    return 0;
+  }
+
+  double dX1{(-dB + std::sqrt(dDiskriminant)) / (cdTWO * dA)};
+  double dX2{(-dB - std::sqrt(dDiskriminant)) / (cdTWO * dA)};
+
+  std::cout << "X1 = " << dX1 << ";\nX2 = " << dX2 << ";\n";
+
+  return 0;
+}
