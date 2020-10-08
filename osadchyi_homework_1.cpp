@@ -1,54 +1,64 @@
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
-int main(){
-    short a{};
-    short b{};
-    short c{};
+int main() {
+  int atmpts{3};
+  constexpr short lwr_bndr = 2;
+  constexpr short uppr_bndr = 255;
+
+  std::cout << "Enter three numbers in range " + std::to_string(lwr_bndr) +
+                   "..." + std::to_string(uppr_bndr) +
+                   " separated by space in order a b c.\nIf value is empty "
+                   "leave 0."
+            << std::endl;
+
+  short a{};
+  short b{};
+  short c{};
+  bool a_range{false};
+  bool b_range{false};
+  bool c_range{false};
+
+  while (atmpts) {
+    std::cin >> a >> b >> c;
+    a_range = a >= lwr_bndr && a <= uppr_bndr;
+    b_range = b >= lwr_bndr && b <= uppr_bndr;
+    c_range = c >= lwr_bndr && c <= uppr_bndr;
+
+    --atmpts;
+    if (!(a_range && b_range && c_range) &&
+        atmpts != 0) // check for attempts is needed so that not to print this
+                     // message at the end
+      std::cout
+          << "One of your values is out of range. Please, please try again"
+          << std::endl;
+    else
+      break;
+  }
+
+  if (a_range && b_range && c_range) {
     double x_1{};
     double x_2{};
-    double discr{};
-    bool a_range{false};
-    bool b_range{false};
-    bool c_range{false};
-    int atmpts{3};
+    double discr = b * b - 4 * a * c;
+    double mul_2_a = 2 * a;
 
-    std::cout << "Enter three numbers in range 2...255 separated by space "
-				 "in order a b c.\nIf value is empty leave 0." 
-		      << std::endl;
+    if (discr > 0) {
+      double sqrt_discr = std::sqrt(discr);
 
-    while (atmpts) {
-        std::cin >> a >> b >> c;
-        a_range = a >= 2 & a <= 255;
-        b_range = b >= 2 & b <= 255;
-        c_range = c >= 2 & c <= 255;
+      x_1 = (-b + sqrt_discr) / mul_2_a;
+      x_2 = (-b - sqrt_discr) / mul_2_a;
 
-        --atmpts;
-        if (!(a_range & b_range & c_range) & atmpts != 0) // check for attempts is needed so that not to print this message at the end
-            std::cout << "One of your values is out of range. Please, please try again" << std::endl;
-        else
-            break;
+      std::cout << "x1 = " << x_1 << std::endl;
+      std::cout << "x2 = " << x_2 << std::endl;
+    } else if (discr == 0) {
+      x_1 = -(b / mul_2_a);
+
+      std::cout << "x1 = x2 = " << x_1 << std::endl;
+    } else {
+      std::cout << "Discriminant < 0. The equation does not have solutions."
+                << std::endl;
     }
-
-    if (a_range & b_range & c_range){
-        discr = b*b - 4*a*c;
-        if (discr >= 0){
-            x_1 = (-b + std::sqrt((b*b) - 4*a*c)) / (2*a);
-            x_2 = (-b - std::sqrt((b*b) - 4*a*c)) / (2*a);
-
-            std::cout << "x1 = " << x_1 << std::endl;
-            std::cout << "x2 = " << x_2 << std::endl;
-        }
-        else if (discr == 0){
-            x_1 = -(b/2*a);
-
-            std::cout << "x1 = x2 = " << x_1 << std::endl;
-        }
-        else{
-            std::cout << "Discriminant < 0. The equation does not have solutions." << std::endl;
-        }
-    }
-    else
-        std::cout << "Sorry, no more attempts." << std::endl;
-	return 0;
+  } else
+    std::cout << "Sorry, no more attempts." << std::endl;
+  return 0;
 }
