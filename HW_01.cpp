@@ -20,7 +20,7 @@ int main (void) {
     for (uint8_t i = 0; i < ARRAY_LEN(coefficient);) {
         std::cout<<"Please enter number in range [2..255]"<<std::endl;
         std::cout<<name<<"-->";
-        std::cin>>coefficient[i];
+        std::cin>>*coefficient;
 
         if ((coefficient[i] >= 2) && (coefficient[i] <= 255)) {
             i++;
