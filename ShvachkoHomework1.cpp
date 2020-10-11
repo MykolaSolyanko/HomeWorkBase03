@@ -1,13 +1,17 @@
 #include <cmath>
 #include <iostream>
 
-constexpr int two(2);
-constexpr int four(4);
+constexpr int two{2};
+constexpr int four{4};
 
-constexpr int attemtps(10);
+constexpr int llimit{-100};
+constexpr int rlimits{100};
+
+constexpr int attemtps{3};
+
 
 int main() {
-  int a{}, b{}, c{};
+  int a{}, b{}, c{}, d{};
   int trying(0);
   // Проверяем корректность вводимых значений
   while (trying < attemtps) {
@@ -32,7 +36,7 @@ int main() {
   if (trying <= attemtps)
 
   {
-    auto discrim = b * b - four * a * c;
+    constexpr int discrim{d} = b * b - four * a * c;
     if (discrim < 0)
       std::cout << "No roots!\n";
 
@@ -48,7 +52,8 @@ int main() {
     }
   }
 
-  else
+  else {
     std::cout << "Restart programm";
+  }
   return 0;
 }
