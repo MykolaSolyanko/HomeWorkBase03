@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
   std::cout << "Enter integer number: ";
   if (!(std::cin >> iInNumber)) {
     std::cout << "Uncorrect number!";
+    return -1;
   }
 
   // Алгоритм честно подсмотрел в интернете :)
