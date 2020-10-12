@@ -1,3 +1,4 @@
+// lucky ticket
 #include <iostream>
 
 unsigned getSum(unsigned value) {
