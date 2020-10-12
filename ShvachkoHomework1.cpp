@@ -36,7 +36,7 @@ int main() {
   if (trying <= attemtps)
 
   {
-    constexpr int discrim{d} = b * b - four * a * c;
+    const int discrim{d} = b * b - four * a * c;
     if (discrim < 0)
       std::cout << "No roots!\n";
 
