@@ -1,3 +1,4 @@
+// inverse number
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -9,7 +10,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // firtly, did with string
+  // firstly, did with string
   //  std::string Number;
   //	std::cin >> Number;
   //	std::cout << std::string(Number.rbegin(), Nubmer.rend()) << '\n';
