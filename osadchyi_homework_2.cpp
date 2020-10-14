@@ -152,24 +152,6 @@ int is_bit_set() {
   int num{};
   int ordr{};
   std::cin >> num >> ordr;
-  // int count{1};
-  // bool is_set{};
-
-  // while(num > 0){
-  //    if (count == ordr){
-  //       is_set = (num % 2) == 1;
-  //       break;
-  //    }
-  //    num /= 2;
-  //    ++count;
-  // }
-  // if (is_set){
-  //    std::cout << "Yes" << std::endl;
-  // }
-  // else{
-  //    std::cout << "No" << std::endl;
-  // }
-
   ordr -= 1;
   if (num & (1 << ordr)) {
     std::cout << "Yes" << std::endl;
