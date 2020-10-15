@@ -1,0 +1,44 @@
+#include <cmath>
+#include <iostream>
+int main(int argc, char const *argv[]) {
+  std::cout << "-Programm for computation quadratic equation-\n";
+  std::cout << "-Basic view: ax^2+bx+c=0-\n";
+  std::cout << "Enter a, b, c\n";
+  std::cout << "Please, enter a:";
+  int a;
+  std::cin >> a;
+  if (a >= -150 && a <= 150 && a != 0) {
+  } else {
+    std::cout << "You enter a wrong number!\n";
+    return -1;
+  }
+  std::cout << "Please, enter b:";
+  int b;
+  std::cin >> b;
+  if (b >= -150 && b <= 150 && b != 0) {
+  } else {
+    std::cout << "You enter a wrong number!\n";
+    return -1;
+  }
+  std::cout << "Please, enter c:";
+  int c;
+  std::cin >> c;
+  if (c >= -150 && c <= 150 && c != 0) {
+  } else {
+    std::cout << "You enter a wrong number!\n";
+    return -1;
+  }
+  const long long kD = (b * b) - (4 * a * c);
+  std::cout << "D = " << kD << std::endl;
+  if (kD < 0) {
+    std::cout << "You haven`t radical of the equation\n";
+    return -1;
+  }
+  const auto k2a = 2 * a;
+  long double x1 = (-b + sqrt(kD)) / k2a;
+  long double x2 = (-b - sqrt(kD)) / k2a;
+  std::cout << " Your radicals: \n"
+            << "X1 = " << x1 << "\n"
+            << "X2 = " << x2 << "\n";
+  return 0;
+}
