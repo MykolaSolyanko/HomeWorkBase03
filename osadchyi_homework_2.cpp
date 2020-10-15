@@ -21,8 +21,9 @@ int sum_and_avrg() {
 int lucky_tckt() {
   int num{};
   std::cin >> num;
-  int six_dig_bndr = 100000;
-  if (num < six_dig_bndr) {
+  int lwr_six_dig_bndr = 100000;
+  int uppr_six_dig_bndr = 999999;
+  if ((num < lwr_six_dig_bndr) || (num > uppr_six_dig_bndr)) {
     std::cout << "Incorrect typed number" << std::endl;
     return 0;
   }
