@@ -6,8 +6,10 @@ int main() {
   constexpr short lwr_bndr = 2;
   constexpr short uppr_bndr = 255;
 
-  std::cout << "Enter three numbers in range " << lwr_bndr << "..."
-            << std::to_string(uppr_bndr)
+  std::cout << "Enter three numbers in range " 
+            << lwr_bndr 
+            << "..."
+            << uppr_bndr
             << " separated by space in order a b c.\nIf value is empty leave 0."
             << std::endl;
 
