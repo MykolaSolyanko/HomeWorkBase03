@@ -6,33 +6,22 @@ int main() {
   constexpr short lwr_bndr = 2;
   constexpr short uppr_bndr = 255;
 
-  std::cout << "Enter three numbers in range " + std::to_string(lwr_bndr) +
-                   "..." + std::to_string(uppr_bndr) +
-                   " separated by space in order a b c.\nIf value is empty "
-                   "leave 0."
+  std::cout << "Enter three numbers in range " << lwr_bndr << "..."
+            << std::to_string(uppr_bndr)
+            << " separated by space in order a b c.\nIf value is empty leave 0."
             << std::endl;
 
-  while (atmpts) {
+  while (atmpts-- > 0) {
     short a{};
     short b{};
     short c{};
-    bool a_range{false};
-    bool b_range{false};
-    bool c_range{false};
 
     std::cin >> a >> b >> c;
-    a_range = a >= lwr_bndr && a <= uppr_bndr;
-    b_range = b >= lwr_bndr && b <= uppr_bndr;
-    c_range = c >= lwr_bndr && c <= uppr_bndr;
+    bool a_range = a >= lwr_bndr && a <= uppr_bndr;
+    bool b_range = b >= lwr_bndr && b <= uppr_bndr;
+    bool c_range = c >= lwr_bndr && c <= uppr_bndr;
 
-    --atmpts;
-    if (!(a_range && b_range && c_range) &&
-        atmpts != 0) // check for attempts is needed so that not to print this
-                     // message at the end
-      std::cout
-          << "One of your values is out of range. Please, try again."
-          << std::endl;
-    else if (a_range && b_range && c_range) {
+    if (a_range && b_range && c_range) {
       double x_1{};
       double x_2{};
       double discr = b * b - 4 * a * c;
@@ -56,10 +45,9 @@ int main() {
       }
       break;
     } else {
-      std::cout << "Sorry, no more attempts." << std::endl;
-      break;
+      std::cout << "One of your values is out of range. Please, try again."
+                << std::endl;
     }
   }
-
   return 0;
 }
