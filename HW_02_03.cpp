@@ -44,7 +44,7 @@ uint32_t value_digits_quantity(uint32_t value) {
 
 /**
  * @brief This function returns the last digit for given value
- * 
+ *
  * @param value     [input] Value for calculation
  * @return uint32_t The last digit
  */
@@ -52,10 +52,10 @@ uint32_t value_get_the_last_digit(uint32_t value) { return (value % 10); }
 
 /**
  * @brief This function trims the last digit for given number
- * 
+ *
  * @param value [input/output] Pointer to external variable
- * @return true 
- * @return false 
+ * @return true
+ * @return false
  */
 bool value_trim_the_last_digit(uint32_t *value) {
   if (!value) {
@@ -69,7 +69,7 @@ bool value_trim_the_last_digit(uint32_t *value) {
 
 /**
  * @brief This function changes the order of given number
- * 
+ *
  * @param value     [input] Number for calculation
  * @param order     [input] New order for given number
  * @return uint32_t  Number with changed order
@@ -102,7 +102,7 @@ int value_reverce(int value) {
 
     reverse += value_change_order(last_digit, --value_order);
     // std::cout << "log: reverse = "<< reverse << std::endl;
-    
+
     value_trim_the_last_digit(&abs_value);
     // std::cout << "log: abs = "<< abs_value << std::endl;
     // std::cout << "---------------"<< std::endl;

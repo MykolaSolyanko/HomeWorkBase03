@@ -19,8 +19,8 @@ constexpr uint32_t ALLOWWED_TICKET_DIGITS_QUANTITY{6};
 constexpr uint32_t TICKET_PART_TO_COMPARE{ALLOWWED_TICKET_DIGITS_QUANTITY / 2};
 
 uint32_t value_digits_quantity(uint32_t value);
-uint8_t  value_summ_n_digits  (uint32_t value, uint32_t quantity, uint32_t *summ);
-uint8_t  value_skip_n_digits  (uint32_t* value, uint32_t n);
+bool     value_summ_n_digits  (uint32_t value, uint32_t quantity, uint32_t *summ);
+bool     value_skip_n_digits  (uint32_t* value, uint32_t n);
 
 int main() {
 
@@ -64,7 +64,7 @@ int main() {
 /**
  * @brief This function returns quantity of digits for given value
  * 
- * @param value     Input value for calculation
+ * @param value     [input] Value for calculation
  * @return uint32_t Quantity of digits
  */
 uint32_t value_digits_quantity(uint32_t value) {
@@ -80,12 +80,13 @@ uint32_t value_digits_quantity(uint32_t value) {
 /**
  * @brief This function calculates summ of first n digits for given value
  * 
- * @param value     Input value for calculation
- * @param quantity  Quantity of digits for addition
- * @param summ      i/o pointer to variable, where summ will be written
- * @return uint8_t  SUCCESS - 1, FAILURE - 0 
+ * @param value     [input] Value for calculation
+ * @param quantity  [input] Quantity of digits for addition
+ * @param summ      [input/output] Pointer to variable, where summ will be written
+ * @return true 
+ * @return false  
  */
-uint8_t value_summ_n_digits(uint32_t value, uint32_t quantity, uint32_t *summ) {
+bool value_summ_n_digits(uint32_t value, uint32_t quantity, uint32_t *summ) {
 
   if (!summ || (value_digits_quantity(value) < quantity)) {
     return 0;
@@ -104,11 +105,12 @@ uint8_t value_summ_n_digits(uint32_t value, uint32_t quantity, uint32_t *summ) {
 /**
  * @brief This function trimms n first digits for given value
  * 
- * @param value    i/o pointer to variable for trimming
- * @param n        Number of first digits that will deleted from value 
- * @return uint8_t SUCCESS - 1, FAILURE - 0
+ * @param value    [input/output] pointer to variable for trimming
+ * @param n        [input] Number of first digits that will deleted from value 
+ * @return true 
+ * @return false 
  */
-uint8_t value_skip_n_digits (uint32_t* value, uint32_t n) {
+bool value_skip_n_digits (uint32_t* value, uint32_t n) {
   if(!value) {
       return 0;
   }
