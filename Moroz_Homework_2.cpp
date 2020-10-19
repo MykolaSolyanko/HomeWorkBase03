@@ -1,10 +1,17 @@
 #include <iostream>
+#include <limits>
 
 void getSumAndAverage() {
   std::cout << R"(Please, enter some integer value to calculate
           the sum of digits and it's average: )";
   long long inputValue{};
   std::cin >> inputValue;
+  if(std::cin.fail())
+  {
+    std::cin.clear();
+    std::cin.ignore(32768, '\n');
+    std::cout << "Wrong number! Please try again later." << std::endl;
+  }
 
   long long sumOfDigits{};
   int numOfDigits{};
@@ -25,19 +32,19 @@ void luckyTicket() {
   std::cout << "Please, enter 6 digit number: ";
   int luckyTicketValue{};
   std::cin >> luckyTicketValue;
+  if(std::cin.fail())
+  {
+    std::cin.clear();
+    std::cin.ignore(32768, '\n');
+    std::cout << "Wrong number! Please try again later." << std::endl;
+  }
 
   if (luckyTicketValue <= 0) {
     std::cerr << "It's bad value. Your value must be above 0.";
     return;
   }
 
-  int temp{luckyTicketValue};
-  int counter{1};
-  while ((temp /= 10) > 0) {
-    counter++;
-  }
-
-  if ((counter < 6) || (counter > 6)) {
+  if (luckyTicketValue < 100000 || luckyTicketValue > 999999) {
     std::cerr << "The number of digits is different from 6.";
     return;
   }
@@ -65,19 +72,37 @@ void luckyTicket() {
   std::cout << "Congratulations! Your number is lucky!" << std::endl;
 }
 
-int main() {
-  //  getSumAndAverage();
-  //  luckyTicket();
+void reverseNumber(){
+  std::cout << "Please enter number in range " << std::numeric_limits<int32_t>::min() << ".." << std::numeric_limits<int32_t>::max() << std::endl;
+  int32_t numberToReverse{};
+  std::cout << "----->";
+  std::cin >> numberToReverse;
+  if(std::cin.fail())
+  {
+    std::cin.clear();
+    std::cin.ignore(32768, '\n');
+    std::cout << "Wrong number! Please try again later." << std::endl;
+  }
 
+}
+
+int main() {
   while (true) {
     std::cout << "Choose your function. Enter one of the numbers below. To "
                  "exit enter -1."
               << std::endl;
     std::cout << "1 - Sum and Average." << std::endl;
     std::cout << "2 - Lucky ticket." << std::endl;
+    std::cout << "3 - Reverse Number." << std::endl;
     std::cout << "-----> ";
     int16_t marker{};
     std::cin >> marker;
+    if(std::cin.fail())
+    {
+      std::cin.clear();
+      std::cin.ignore(32768, '\n');
+      std::cout << "Wrong number! Please try again later." << std::endl;
+    }
     switch (marker) {
     case 1:
       std::cout << std::endl;
@@ -87,6 +112,11 @@ int main() {
     case 2:
       std::cout << std::endl;
       luckyTicket();
+      std::cout << std::endl;
+      break;
+    case 3:
+      std::cout << std::endl;
+      reverseNumber();
       std::cout << std::endl;
       break;
     case -1:
