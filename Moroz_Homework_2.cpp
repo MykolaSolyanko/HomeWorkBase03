@@ -172,7 +172,6 @@ int main() {
       std::cout << std::endl;
       std::cout << "Bye!" << std::endl;
       return 0;
-      break;
     default:
       std::cout << std::endl;
       std::cout << "This function is not presented." << std::endl;
