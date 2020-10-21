@@ -9,9 +9,12 @@ int main() {
 
   int value{};
   std::cin >> value;
-
-  if (!std::cin || (int(std::log10(value) + 1) != NUM_DIGITS)) {
+  if(!std::cin ){
     std::cout << "incorrect input\n";
+    return -1;
+  }
+  if ((static_cast<int>(std::log10(value) + 1) != NUM_DIGITS)) {
+    std::cout << "incorrect number\n";
     return -1;
   }
 
