@@ -10,7 +10,7 @@ int main() {
 
   int32_t rev_number{};
 
-  while (number) {
+  while (number>0) {
     rev_number = number % 10 + rev_number * 10;
     number /= 10;
   }
