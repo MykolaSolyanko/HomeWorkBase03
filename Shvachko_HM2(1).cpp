@@ -1,23 +1,23 @@
 // sum and average
 #include <iostream>
 
-unsigned getSum(unsigned value) {
-  unsigned result = value % 10;
-  while (value /= 10)
-    result += value % 10;
-  return result;
+unsigned getSumAver(unsigned value, unsigned value1) {
+    unsigned result = value % 10;
+    unsigned amount = 1;
+
+    while ((value /= 10) && (value1 /=10)) {
+        result += value % 10;
+        amount++;
+    }
+    std::cout<< "Sum of value = " << result;
+    std::cout << "Average of value = " ;
+    return (result,amount);
 }
 
-unsigned getAmount(unsigned value) {
-  unsigned result = 1;
-  while (value /= 10)
-    result++;
-  return result;
-}
 
 int main() {
-  unsigned n = 12345;
-  std::cerr << getSum(n) << std::endl;
-  std::cerr << (getSum(n) / getAmount(n));
-  return 0;
+    std::cout << "Program comput of amount, average value\n";
+    unsigned n = 12345;
+    std::cout << getSumAver(n,n) << std::endl;
+    return 0;
 }
