@@ -1,13 +1,12 @@
 #include <iostream>
 
 int main() {
-
-  std::cout << "Enter list integers from -60 to 90\n"
-            << "(no more 50 numbers). At the end of input put 0 \n";
-
-  constexpr int Max_Size = 50;
-  constexpr int Low_Scope = -60;
-  constexpr int High_Scope = 90;
+  constexpr int Max_Size {50};
+  constexpr int Low_Scope  {-60};
+  constexpr int High_Scope {90};
+  
+    std::cout << "Enter list integers from "<<Low_Scope<<" to "<< High_Scope<<'\n'
+            << "(no more "<<Max_Size<<" numbers). At the end of input put 0 \n";
 
   int sum{};
 
