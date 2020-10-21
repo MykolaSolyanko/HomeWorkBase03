@@ -14,11 +14,11 @@ int main() {
   for (int i{1}; i < Max_Size; ++i) {
     int32_t Numb{};
     std::cin >> Numb;
-    if (!std::cin || Numb == 0) {
-      break;
+    if (!std::cin || Numb < MinRange || Numb > MaxRange) {
+      return -1;
     }
-    if (Numb < MinRange || Numb > MaxRange) {
-      std::cout << "Incorrect number\n";
+    // Exit of programm
+    if (Numb == 0) {
       break;
     }
     if (i % 2 != 0) {
