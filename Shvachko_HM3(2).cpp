@@ -2,6 +2,9 @@
 #include <iostream>
 
 int main() {
+  std::cout << "The programm will insert the elements you entered into an "
+               "array of size 8\n";
+  std::cout << "and will output in ascending order\n";
   constexpr uint16_t kSize{8};
   std::array<int, kSize> ar{};
   for (int i = 0; i < kSize; i++) {
