@@ -2,9 +2,9 @@
 #include <iostream>
 
 int main() {
-  std::cout << "Please enter string (no more 100 characters): \n";
-
   constexpr int Max_Char=100;
+  
+  std::cout << "Please enter string (no more "<<Max_Char<<" characters): \n";  
   
   char str[Max_Char];
   std::cin.get(str, Max_Char);
