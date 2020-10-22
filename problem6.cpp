@@ -8,8 +8,8 @@ int main() {
 
   uint16_t sum_bit{};
 
-  while (number) {
-    if (number % 2 != 0) {
+  while (number > 0) {
+    if ((number & 1 ) != 0) {
       ++sum_bit;
     }
     number >>= 1;
