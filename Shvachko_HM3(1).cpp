@@ -3,7 +3,7 @@
 
 int main() {
 
-  std::cout << "Enter line which want to reverse ---> ";
+  std::cout << "Enter string which want to reverse ---> ";
   std::string s;
   std::cin >> s;
 
