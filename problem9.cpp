@@ -11,11 +11,7 @@ int main() {
     sum += number;
   }
 
-  if (sum % 3 == 0) {
-    std::cout << "Yes\n";
-  } else {
-    std::cout << "No\n";
-  }
+ std::cout << (sum % 3) ? "Yes\n"  : "No\n";
 
   return 0;
 }
