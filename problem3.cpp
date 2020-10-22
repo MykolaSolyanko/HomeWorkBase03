@@ -10,8 +10,6 @@ int main() {
     arr.at(i) = std::experimental::randint(1, 20);
   }
 
-  long sum{1};
-
   while (std::cin) {
     constexpr uint16_t Low_Limit{1};
     constexpr uint16_t Upper_Limit{20};
@@ -23,8 +21,8 @@ int main() {
       std::cout << "incorrect input\n";
       break;
     }
-    sum = 0;
-
+    long sum{};
+    
     for (size_t i{}; i < Size_Array; ++i) {
       if (arr.at(i) == number) {
         std::cout << "Deleting " << arr.at(i) << " from array\n\n";
