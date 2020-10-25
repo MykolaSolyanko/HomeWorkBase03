@@ -13,15 +13,9 @@ int main() {
     count++;
   }
   std::cout << "The amount of digits=" << count << std::endl;
-
-  while (number > 0) {
-    sum += number % 10;
-
-    number /= 10;
-  }
   std::cout << "Sum=" << sum << std::endl;
   int average{};
-  average = sum / count;
+  double average = sum / count;
   std::cout << "Average=" << average << std::endl;
 
   // 2
@@ -32,12 +26,14 @@ int main() {
 
   int a1{};
   int a2{};
-  int c{};
-  if (99999 >= number2 || number2 > 999999) {
+  int constexpr kMin{ 99999 };
+  int constexpr kMax{ 999999 };
+  if (kMin >= number2 || number2 > kMax) {
     std::cout << "You enterd incorrect number" << std::endl;
     return -1;
   } else {
-    for (int i = 0; number2; i++) {
+     int c{};
+    for (int i = 0; number2>0; i++) {
       c = number2 % 10;
       if (i < 3) {
         a1 += c;
@@ -57,4 +53,66 @@ int main() {
   }
 
   return 0;
+}
+//3
+std::cout << "Enter number" << std::endl;
+    int number{};
+    std::cin >> number;
+    int reverse{};
+    while (number) {
+        reverse = reverse * 10 + number % 10;
+        number /= 10;
+    }
+    std::cout << "Reverse ="<<reverse<<std::endl;
+//4
+int array[50];
+    constexpr int kMinRange{ -60 };
+    constexpr int kMaxRange{ 90 };
+
+    std::cout << "Please, enter values in the range from" << kMinRange << "to"
+        << kMaxRange << "inclusive" << std::endl;
+    for (int i = 0; i < 50; i++) {
+        std::cin >> array[i];
+
+        if (array[i] < kMinRange || array[i] > kMaxRange) {
+            std::cout << "Value is out of range" << std::endl;
+            return -1;
+        }
+        else {
+            std::cout << "Array=" << array[i] << std::endl;
+        }
+    }
+    int sum{};
+    for (int i = 0; i < 50; i++) {
+        if (array[i] % 2 != 0) {
+            sum += array[i];
+        }
+    }
+    std::cout << "Sum=" << sum << std::endl;
+//5
+ std::cout << "Input number  to findt best divider = \n";
+  int number{};
+  std::cin >> number;
+
+  int sum = 0;
+  int numOne = 0;
+  int count = 0;
+  int j{0};
+
+  for (int i = number; i > 0; --i) {
+    if (number % i == 0) {
+      j = i;
+      std::cout << "deliver = " << j << std::endl;
+    }
+  }
+  while (number) {
+    sum += number % 10;
+    number /= 10;
+  }
+  std::cout << "Sum of digits of the number =" << sum << std::endl;
+
+  if (j > sum) {
+    numOne = j;
+  }
+  std::cout << "" << numOne << std::endl;
 }
