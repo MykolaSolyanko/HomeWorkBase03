@@ -119,13 +119,52 @@ void sumOfOdd() {
       std::cout << "Invalid value! Break." << std::endl;
       return;
     }
-    if((number % 2) == 0) {
+    if((number % 2) != 0) {
       sumOfOddNumbers += number;
     }
     counter++;
   }
 
   std::cout << "The sum of all odd elements is " << sumOfOddNumbers << std::endl;
+}
+
+void bestDivider() {
+    constexpr int16_t minValue{2};
+    std::cout << "Please enter some integer number between " << minValue << " and " << std::numeric_limits<int16_t>::max() << std::endl;
+    int16_t value{};
+
+    std::cin >> value;
+    if (std::cin.fail()) {
+      std::cin.clear();
+      std::cin.ignore(32768, '\n');
+      std::cout << "Wrong number! Please try again later." << std::endl;
+      return;
+    }
+    int16_t dividerValue{value};
+    int16_t maxValue{};
+    while(dividerValue) {
+        if((value % dividerValue) == 0) {
+            if(dividerValue > 9) {
+                int16_t sumOfDigitsDividerValue{};
+                int16_t temp{dividerValue};
+                while (temp) {
+                    sumOfDigitsDividerValue += temp % 10;
+                    temp /= 10;
+                }
+                if(sumOfDigitsDividerValue > maxValue) {
+                    maxValue = sumOfDigitsDividerValue;
+                    dividerValue--;
+                    continue;
+                }
+            }
+            if(dividerValue > maxValue) {
+                maxValue = dividerValue;
+            }
+        }
+        dividerValue--;
+    }
+
+    std::cout << "Best divider of " << value << " is " << maxValue << std::endl;
 }
 
 int main() {
@@ -137,6 +176,7 @@ int main() {
     std::cout << "2 - Lucky ticket." << std::endl;
     std::cout << "3 - Reverse Number." << std::endl;
     std::cout << "4 - Sum of all odd elements." << std::endl;
+    std::cout << "5 - Best divider." << std::endl;
     std::cout << "-----> ";
     int16_t marker{};
     std::cin >> marker;
@@ -166,6 +206,11 @@ int main() {
       sumOfOdd();
       std::cout << std::endl;
       break;
+    case 5:
+        std::cout << std::endl;
+        bestDivider();
+        std::cout << std::endl;
+        break;
     case -1:
       std::cout << std::endl;
       std::cout << "Bye!" << std::endl;
