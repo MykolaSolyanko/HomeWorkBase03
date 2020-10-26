@@ -102,10 +102,11 @@ void sumOfOdd() {
   constexpr int16_t minValue{-60};
   constexpr int16_t maxValue{60};
   int64_t sumOfOddNumbers{};
-  std::cout << "Please, enter " << numberOfIteration << " numbers to calculate summ of odd numbers:" << std::endl;
+  std::cout << "Please, enter " << numberOfIteration
+            << " numbers to calculate summ of odd numbers:" << std::endl;
 
   uint16_t counter{};
-  while(counter < numberOfIteration) {
+  while (counter < numberOfIteration) {
     int32_t number{};
     std::cout << "-->";
     std::cin >> number;
@@ -115,7 +116,7 @@ void sumOfOdd() {
       std::cout << "Wrong number! Please try again later." << std::endl;
       return;
     }
-    if((number < minValue) || (number > maxValue)) {
+    if ((number < minValue) || (number > maxValue)) {
       std::cout << "Invalid value! Break." << std::endl;
       return;
     }
@@ -125,7 +126,8 @@ void sumOfOdd() {
     counter++;
   }
 
-  std::cout << "The sum of all odd elements is " << sumOfOddNumbers << std::endl;
+  std::cout << "The sum of all odd elements is " << sumOfOddNumbers
+            << std::endl;
 }
 
 void bestDivider() {
@@ -215,7 +217,6 @@ int main() {
       std::cout << std::endl;
       std::cout << "Bye!" << std::endl;
       return 0;
-      break;
     default:
       std::cout << std::endl;
       std::cout << "This function is not presented." << std::endl;
