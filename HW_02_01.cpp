@@ -22,19 +22,19 @@ int main() {
 
   auto average = static_cast<float>(summ) / quantity;
   std::cout << "The average is " << average << std::endl;
-  
+
   return EXIT_SUCCESS;
 }
 
 /**
  * @brief This function returns quantity of digits for given value
- * 
+ *
  * @param value     [input] Value for calculation
  * @return uint32_t Quantity of digits
  */
 uint32_t value_digits_quantity(uint32_t value) {
   uint32_t quantity = 1;
-  
+
   while (value /= 10) {
     ++quantity;
   }
@@ -44,7 +44,7 @@ uint32_t value_digits_quantity(uint32_t value) {
 
 /**
  * @brief This function calculates summ for given value
- * 
+ *
  * @param value     [input] Given value for calculation
  * @return uint32_t Summ
  */

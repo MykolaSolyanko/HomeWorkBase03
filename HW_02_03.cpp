@@ -6,7 +6,7 @@
 #include <iostream>
 
 uint32_t value_digits_quantity(uint32_t value);
-bool value_trim_the_last_digit(uint32_t *value);
+bool value_trim_the_last_digit(uint32_t *const value);
 uint32_t value_get_the_last_digit(uint32_t value);
 
 int value_reverce(int value);
@@ -57,7 +57,7 @@ uint32_t value_get_the_last_digit(uint32_t value) { return (value % 10); }
  * @return true
  * @return false
  */
-bool value_trim_the_last_digit(uint32_t *value) {
+bool value_trim_the_last_digit(uint32_t *const value) {
   if (!value) {
     return false;
   }
