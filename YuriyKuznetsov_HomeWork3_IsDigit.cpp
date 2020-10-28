@@ -1,31 +1,31 @@
+//Проверить является ли введеный символ числом
 #include <iostream>
 
 bool bIsDigit(const unsigned char cuchSymbol);
 
 int main() {
-  constexpr uint32_t cuiMAXCHAR{256};
-  constexpr char ccENDOFSTRING{'\0'};
-  unsigned char auchInBuffer[cuiMAXCHAR]{};
+  constexpr size_t csizeMAXCHAR{256};
+  constexpr char cchENDOFSTRING{'\0'};
+  unsigned char auchInBuffer[csizeMAXCHAR]{};
 
-  std::cout << "Enter the string: ";
+  std::cout << "Enter the string for digits extracting: ";
   std::cin >> auchInBuffer; // without any checking
 
-  std::cout << "Digits: ";
-  for (uint32_t uiCharIndex = 0; uiCharIndex < cuiMAXCHAR; ++uiCharIndex) {
-    if (*(auchInBuffer + uiCharIndex) == ccENDOFSTRING) {
+  std::cout << "Digits are: ";
+  for (size_t sizeCharIndex = 0; sizeCharIndex < csizeMAXCHAR;
+       ++sizeCharIndex) {
+    if (*(auchInBuffer + sizeCharIndex) == cchENDOFSTRING) {
       break;
     }
-    if (!bIsDigit(*(auchInBuffer + uiCharIndex))) {
+    if (!bIsDigit(*(auchInBuffer + sizeCharIndex))) {
       continue;
     }
-    std::cout << *(auchInBuffer + uiCharIndex) << ' ';
+    std::cout << *(auchInBuffer + sizeCharIndex) << ' ';
   }
+  std::cout << '\n';
   return 0;
 }
 
 bool bIsDigit(const unsigned char cuchSymbol) {
-  if ((cuchSymbol < '0') || (cuchSymbol > '9')) {
-    return false;
-  }
-  return true;
+  return !((cuchSymbol < '0') || (cuchSymbol > '9'));
 }
