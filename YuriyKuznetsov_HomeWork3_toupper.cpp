@@ -8,7 +8,7 @@ int main() {
   constexpr char cchENDOFSTRING{'\0'};
   unsigned char auchInBuffer[csizeMAXCHAR]{};
 
-  std::cout << "Enter the string: ";
+  std::cout << "Enter the string to convert to uppercase: ";
   std::cin >> auchInBuffer; // without any checking
 
   for (size_t sizeCharIndex = 0; sizeCharIndex < csizeMAXCHAR;
