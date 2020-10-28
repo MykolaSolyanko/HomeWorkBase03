@@ -4,18 +4,19 @@
 char chGetHi(const unsigned char in_cuchSymbol);
 
 int main() {
-  constexpr uint32_t cuiMAXCHAR{256};
-  constexpr char ccENDOFSTRING{'\0'};
-  unsigned char auchInBuffer[cuiMAXCHAR]{};
+  constexpr size_t csizeMAXCHAR{256};
+  constexpr char cchENDOFSTRING{'\0'};
+  unsigned char auchInBuffer[csizeMAXCHAR]{};
 
   std::cout << "Enter the string: ";
   std::cin >> auchInBuffer; // without any checking
 
-  for (uint32_t uiCharIndex = 0; uiCharIndex < cuiMAXCHAR; ++uiCharIndex) {
-    if (*(auchInBuffer + uiCharIndex) == ccENDOFSTRING) {
+  for (size_t sizeCharIndex = 0; sizeCharIndex < csizeMAXCHAR;
+       ++sizeCharIndex) {
+    if (*(auchInBuffer + sizeCharIndex) == cchENDOFSTRING) {
       break;
     }
-    *(auchInBuffer + uiCharIndex) = chGetHi(*(auchInBuffer + uiCharIndex));
+    *(auchInBuffer + sizeCharIndex) = chGetHi(*(auchInBuffer + sizeCharIndex));
   }
   std::cout << "To upper string: ";
   std::cout << auchInBuffer << '\n';
