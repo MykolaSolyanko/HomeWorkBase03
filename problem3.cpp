@@ -1,16 +1,20 @@
 #include <array>
-#include <experimental/random>
+#include <random>
 #include <iostream>
 
 int main() {
   constexpr uint16_t Size_Array = 5;
   std::array<int, Size_Array> arr{};
 
-  for (size_t i{}; i < Size_Array; ++i) {
-    arr.at(i) = std::experimental::randint(1, 20);
-  }
+  std::random_device rd;
+  std::uniform_int_distribution<int> dist(1, 9);
 
-  while (std::cin) {
+  for (size_t i{}; i < Size_Array; ++i) {
+      arr[i] = dist(rd);
+  }
+    size_t reduce_size{Size_Array};
+
+  while (std::cin && reduce_size != 0) {
     constexpr uint16_t Low_Limit{1};
     constexpr uint16_t Upper_Limit{20};
     std::cout << "Enter positive integer in scope [" << Low_Limit << ".."
@@ -21,22 +25,23 @@ int main() {
       std::cout << "incorrect input\n";
       break;
     }
-    long sum{};
     
-    for (size_t i{}; i < Size_Array; ++i) {
-      if (arr.at(i) == number) {
-        std::cout << "Deleting " << arr.at(i) << " from array\n\n";
-        arr.at(i) = 0;
+    for (size_t i = 0; i < arr.size(); ++i) {
+      if (arr[i] == number) {
+        std::cout << "Deleting " << arr[i] << " from array\n\n";
+        for (size_t n = i; n < reduce_size; ++n) {
+          arr[n] = arr[n + 1];
+        }
+        --reduce_size;
       }
-      sum += arr.at(i);
     }
-    if (sum != 0) {
-      std::cout << "\ntry again\n\n";
-    } else {
-      std::cout << "Array is empty\n";
-      break;
+    for (size_t i = 0; i < reduce_size; ++i) {
+      std::cout << arr[i] << " ";
     }
+      std::cout << "\ntry again\n";
   }
+
+  std::cout << "Array is empty\n";
 
   return 0;
 }
