@@ -1,13 +1,25 @@
 #include <array>
 #include <iostream>
 
+constexpr uint16_t Size_Array = 7;
+
+void sort_in_place(std::array<int, Size_Array> &arr, size_t index) {
+  if (arr[index] < arr[index - 1]) {
+    for (size_t n = index; n > 0; --n) {
+      if (arr[n] < arr[n - 1]) {
+        std::swap(arr[n], arr[n - 1]);
+      }
+    }
+  }
+}
+
 int main() {
-  constexpr uint8_t Size_Array = 7;
   std::array<int, Size_Array> arr{};
 
-  std::cout << "Please enter " << Size_Array << "  integers: \n";
+  std::cout << "Please enter " << Size_Array << "  integers: \n"
+            << "Number will sort when inserted\n";
 
-  for (size_t i{}; i < Size_Array; ++i) {
+  for (size_t i = 0; i < arr.size(); ++i) {
     int number{};
     std::cin >> number;
     if (!std::cin) {
@@ -15,18 +27,11 @@ int main() {
       return -1;
     }
     if (i == 0) {
-      arr.at(i) = number;
-    } else {
-      arr.at(i) = number;
-
-      if (arr.at(i) < arr.at(i - 1)) {
-        for (size_t n{i}; n > 0; --n) {
-          if (arr.at(n) < arr.at(n - 1)) {
-            std::swap(arr.at(n - 1), arr.at(n));
-          }
-        }
-      }
+      arr[i] = number;
+      continue;
     }
+    arr[i] = number;
+    sort_in_place(arr, i);
   }
   for (auto n : arr) {
     std::cout << n << " ";
@@ -34,3 +39,4 @@ int main() {
 
   return 0;
 }
+
