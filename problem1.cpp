@@ -9,10 +9,10 @@ int main() {
   char str[Max_Char];
   std::cin.get(str, Max_Char);
 
-  for (size_t i{std::strlen(str) - 1}; str[i]; --i) {
-    std::cout << str[i];
+   for (size_t i = 0; i < std::strlen(str) / 2; ++i) {
+      std::swap(str[i], str[std::strlen(str) - 1 - i]);
   }
-  std::cout << '\n';
+  std::cout <<"Revert string: "<<str<< '\n';
 
   return 0;
 }
