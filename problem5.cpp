@@ -10,7 +10,7 @@ int main() {
 
   std::cout << "Is digit: ";
 
-  for (size_t i{}; i < std::strlen(str); ++i) {
+  for (size_t i{}; i < str[i] != '\0'; ++i) {
     if (str[i] >= '0' && str[i] <= '9') {
       std::cout << str[i] << ' ';
     }
