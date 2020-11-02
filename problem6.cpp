@@ -9,12 +9,15 @@ int main() {
   char str[Max_Char]{};
   std::cin >> str;
 
+  constexpr uint8_t Differ_Low_Up = 32;
+
   std::cout << "to lower: ";
 
-  for (size_t i{}; i < std::strlen(str); ++i) {
-    if (static_cast<int>(str[i]) <= 90 && static_cast<int>(str[i]) >= 65) {
-      str[i] = static_cast<char>(str[i] + 32);
+  for (size_t i = 0; str[i] != '\0'; ++i) {
+    if (str[i] >= 'A' && str[i] <= 'Z') {
+      str[i] += Differ_Low_Up;
     }
+   }
   }
   std::cout << str << '\n';
 
