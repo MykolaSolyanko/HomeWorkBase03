@@ -44,7 +44,6 @@ int main() {
     default:
       std::cout << "incorrect input\n";
       return 2;
-      break;
     }
   }
 
