@@ -188,7 +188,7 @@ int build_num() {
     while (amnt > 0) {
         int tmp{};
         std::cin >> tmp;
-        while (tmp) {
+        while (tmp > 0) {
             sum += tmp % 10;
             tmp /= 10;
         }
