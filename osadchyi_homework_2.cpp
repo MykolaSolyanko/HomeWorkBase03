@@ -62,8 +62,14 @@ int reverse_num() {
     std::cin >> num;
     int res{};
     int coeff{ 100 };
-
-    while (num) {
+    if (num < 10) {
+        std::cout << "Reverse number is " << num << std::endl;
+        return 0;
+    }
+    if (num < 100) {
+        coeff = 10;
+    }
+    while (num > 0) {
         res += (num % 10) * coeff;
         num /= 10;
         coeff /= 10;
