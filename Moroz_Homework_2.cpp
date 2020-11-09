@@ -1,16 +1,38 @@
 #include <iostream>
 #include <limits>
 
-void getSumAndAverage() {
-  std::cout << R"(Please, enter some integer value to calculate
-          the sum of digits and it's average: )";
-  long long inputValue{};
-  std::cout << "-->";
-  std::cin >> inputValue;
+enum funcTypes {
+  EXIT,
+  GET_SUM_OF_AVERAGE,
+  LUCKY_TICKET,
+  REVERSE_NUMBER,
+  SUM_OF_ODD,
+  BEST_DIVIDER
+};
+
+int32_t inputValueFunc() {
+  const uint16_t howManySymbolsIgnore{32768};
+
+  int32_t value{};
+  std::cin >> value;
+
   if (std::cin.fail()) {
     std::cin.clear();
-    std::cin.ignore(32768, '\n');
+    std::cin.ignore(howManySymbolsIgnore, '\n');
     std::cout << "Wrong number! Please try again later." << std::endl;
+    return -1;
+  }
+
+  return value;
+}
+
+void getSumAndAverage() {
+
+  std::cout << R"(Please, enter some integer value to calculate
+          the sum of digits and it's average: )";
+  std::cout << "-->";
+  int32_t inputValue{inputValueFunc()};
+  if (inputValue == -1) {
     return;
   }
 
@@ -22,7 +44,7 @@ void getSumAndAverage() {
     numOfDigits++;
   }
 
-  long long average = sumOfDigits / numOfDigits;
+  double average = sumOfDigits / static_cast<double>(numOfDigits);
 
   std::cout << "Sum of digits: " << sumOfDigits << "." << std::endl;
   std::cout << "Average of the sum of digits: " << average << "." << std::endl;
@@ -31,17 +53,17 @@ void getSumAndAverage() {
 void luckyTicket() {
   std::cout << "It's \"Lucky ticket\" checker function " << std::endl;
   std::cout << "Please, enter 6 digit number: ";
-  int luckyTicketValue{};
   std::cout << "-->";
-  std::cin >> luckyTicketValue;
-  if (std::cin.fail()) {
-    std::cin.clear();
-    std::cin.ignore(32768, '\n');
-    std::cout << "Wrong number! Please try again later." << std::endl;
+  int luckyTicketValue{inputValueFunc()};
+  if (luckyTicketValue == -1) {
     return;
   }
 
-  if (luckyTicketValue < 100000 || luckyTicketValue > 999999) {
+  const int minSixDigitNember{100000};
+  const int maxSixDigitNumber{999999};
+
+  if (luckyTicketValue < minSixDigitNember ||
+      luckyTicketValue > maxSixDigitNumber) {
     std::cout << "The number of digits is different from 6 or your number is "
                  "less than 0"
               << std::endl;
@@ -75,21 +97,17 @@ void reverseNumber() {
   std::cout << "Please enter number in range "
             << std::numeric_limits<int32_t>::min() << ".."
             << std::numeric_limits<int32_t>::max() << std::endl;
-  int32_t numberToReverse{};
   std::cout << "----->";
-  std::cin >> numberToReverse;
-  if (std::cin.fail()) {
-    std::cin.clear();
-    std::cin.ignore(32768, '\n');
-    std::cout << "Wrong number! Please try again later." << std::endl;
+  int32_t numberToReverse{inputValueFunc()};
+  if (numberToReverse == -1) {
     return;
   }
 
   int64_t reversedNumber{};
-  while (numberToReverse) {
+  while (numberToReverse > 0) {
     reversedNumber += ((numberToReverse % 10));
     numberToReverse /= 10;
-    if (numberToReverse) {
+    if (numberToReverse > 0) {
       reversedNumber *= 10;
     }
   }
@@ -107,15 +125,12 @@ void sumOfOdd() {
 
   uint16_t counter{};
   while (counter < numberOfIteration) {
-    int32_t number{};
     std::cout << "-->";
-    std::cin >> number;
-    if (std::cin.fail()) {
-      std::cin.clear();
-      std::cin.ignore(32768, '\n');
-      std::cout << "Wrong number! Please try again later." << std::endl;
+    int32_t number{inputValueFunc()};
+    if (number == -1) {
       return;
     }
+
     if ((number < minValue) || (number > maxValue)) {
       std::cout << "Invalid value! Break." << std::endl;
       return;
@@ -134,28 +149,24 @@ void bestDivider() {
   constexpr int16_t minValue{2};
   std::cout << "Please enter some integer number between " << minValue
             << " and " << std::numeric_limits<int16_t>::max() << std::endl;
-  int16_t value{};
-
-  std::cin >> value;
-  if (std::cin.fail()) {
-    std::cin.clear();
-    std::cin.ignore(32768, '\n');
-    std::cout << "Wrong number! Please try again later." << std::endl;
+  int32_t value{inputValueFunc()};
+  if (value == -1) {
     return;
   }
-  int16_t dividerValue{value};
-  int16_t maxValue{};
-  while (dividerValue) {
+
+  int32_t dividerValue{value - 1};
+  int32_t maxValue{};
+  while (dividerValue > 0) {
     if ((value % dividerValue) == 0) {
       if (dividerValue > 9) {
-        int16_t sumOfDigitsDividerValue{};
-        int16_t temp{dividerValue};
+        int32_t sumOfDigitsDividerValue{};
+        int32_t temp{dividerValue};
         while (temp) {
           sumOfDigitsDividerValue += temp % 10;
           temp /= 10;
         }
         if (sumOfDigitsDividerValue > maxValue) {
-          maxValue = sumOfDigitsDividerValue;
+          maxValue = dividerValue;
           dividerValue--;
           continue;
         }
@@ -173,48 +184,44 @@ void bestDivider() {
 int main() {
   while (true) {
     std::cout << "Choose your function. Enter one of the numbers below. To "
-                 "exit enter -1."
-              << std::endl;
+                 "exit enter "
+              << EXIT << std::endl;
     std::cout << "1 - Sum and Average." << std::endl;
     std::cout << "2 - Lucky ticket." << std::endl;
     std::cout << "3 - Reverse Number." << std::endl;
     std::cout << "4 - Sum of all odd elements." << std::endl;
     std::cout << "5 - Best divider." << std::endl;
     std::cout << "-----> ";
-    int16_t marker{};
-    std::cin >> marker;
-    if (std::cin.fail()) {
-      std::cin.clear();
-      std::cin.ignore(32768, '\n');
-      std::cout << "Wrong number! Please try again later." << std::endl;
-    }
+
+    int32_t marker{inputValueFunc()};
+
     switch (marker) {
-    case 1:
+    case GET_SUM_OF_AVERAGE:
       std::cout << std::endl;
       getSumAndAverage();
       std::cout << std::endl;
       break;
-    case 2:
+    case LUCKY_TICKET:
       std::cout << std::endl;
       luckyTicket();
       std::cout << std::endl;
       break;
-    case 3:
+    case REVERSE_NUMBER:
       std::cout << std::endl;
       reverseNumber();
       std::cout << std::endl;
       break;
-    case 4:
+    case SUM_OF_ODD:
       std::cout << std::endl;
       sumOfOdd();
       std::cout << std::endl;
       break;
-    case 5:
+    case BEST_DIVIDER:
       std::cout << std::endl;
       bestDivider();
       std::cout << std::endl;
       break;
-    case -1:
+    case EXIT:
       std::cout << std::endl;
       std::cout << "Bye!" << std::endl;
       return 0;
