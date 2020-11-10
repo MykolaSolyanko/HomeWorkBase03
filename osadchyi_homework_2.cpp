@@ -162,8 +162,8 @@ void count_bits() {
     std::cin >> num;
     int count{};
     while (num > 0) {
-        count += num % 2;
-        num /= 2;
+        count += num & 1;
+        num >>= 1;
     }
     std::cout << "Set bits are " << count << std::endl;
 }
