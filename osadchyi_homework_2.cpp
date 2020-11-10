@@ -1,7 +1,7 @@
 #include <bitset>
 #include <iostream>
 
-int sum_and_avrg() {
+void sum_and_avrg() {
     int sum{};
     int d_amnt{};
     int num{};
@@ -16,11 +16,9 @@ int sum_and_avrg() {
     std::cout << "Sum of digits is " << sum << std::endl;
     std::cout << "Average value is " << static_cast<double>(sum) / d_amnt
         << std::endl;
-
-    return 0;
 }
 
-int lucky_tckt() {
+void lucky_tckt() {
     constexpr int lwr_six_dig_bndr = 100000;
     constexpr int uppr_six_dig_bndr = 999999;
     int num{};
@@ -30,7 +28,7 @@ int lucky_tckt() {
 
     if ((num < lwr_six_dig_bndr) || (num > uppr_six_dig_bndr)) {
         std::cout << "Incorrect typed number" << std::endl;
-        return 0;
+        return;
     }
     int frst_prt{ num % 1000 }; // get last 3 digits
     int f_sum{};
@@ -52,11 +50,9 @@ int lucky_tckt() {
     bool lucky{ (f_sum == s_sum) };
     std::cout << "Is the ticket lucky "
         << "- " << std::boolalpha << lucky << std::endl;
-
-    return 0;
 }
 
-int reverse_num() {
+void reverse_num() {
     int32_t num{};
     std::cout << "Type a number: ";
     std::cin >> num;
@@ -64,7 +60,7 @@ int reverse_num() {
     int coeff{ 100 };
     if (num < 10) {
         std::cout << "Reverse number is " << num << std::endl;
-        return 0;
+        return;
     }
     if (num < 100) {
         coeff = 10;
@@ -77,37 +73,44 @@ int reverse_num() {
 
     std::cout << "Reverse number is " << res << std::endl;
 
-    return 0;
 }
 
-int sum_odd_nmbrs() {
+void sum_odd_nmbrs() {
     constexpr int lwr_inpt{ 1 };
     constexpr int uppr_inpt{ 50 };
-    constexpr int lwr_rng{ -60 };
-    constexpr int uppr_rng{ 90 };
+    constexpr int lwr_rng_val{ -60 };
+    constexpr int uppr_rng_val{ 90 };
+    std::cout << "Type amount of numbers: ";
+    
+    int rng{};
+    std::cin >> rng;
+    
+    if (rng < lwr_inpt || rng > uppr_inpt) {
+        std::cout << "Value shoudl be in range " << lwr_inpt << "..." << uppr_inpt << std::endl;
+        return;
+    }
+    
     int sum{};
     std::cout << "Type numbers: " << std::endl;
 
-    for (int i = lwr_inpt; i <= uppr_inpt; i++) {
+    for (int i = lwr_inpt; i <= rng; i++) {
         int num{};
         std::cin >> num;
-        if ((num >= lwr_rng) && (num <= uppr_rng)) {
+        if ((num >= lwr_rng_val) && (num <= uppr_rng_val)) {
             if (num & 1) { // bitwise check if number is odd
                 sum += num;
             }
         }
         else {
-            std::cout << num << " is out of range " << lwr_rng << ".." << uppr_rng
+            std::cout << num << " is out of range " << lwr_rng_val << ".." << uppr_rng_val
                 << std::endl;
         }
     }
 
-    std::cout << "Sum is " << sum << std::endl;
-
-    return 0;
+    std::cout << "Sum of odd numbers is " << sum << std::endl;
 }
 
-int best_divider() {
+void best_divider() {
     int num{};
     std::cout
         << "Enter a number which for which you want to find a best devider: ";
@@ -122,10 +125,9 @@ int best_divider() {
     }
 
     std::cout << max_best << std::endl;
-    return 0;
 }
 
-int build_tree() {
+void build_tree() {
     int num{};
 
     std::cout << "Enter a height of tree: ";
@@ -137,8 +139,8 @@ int build_tree() {
     int mdl = num / 2;
     int l_brdr{ mdl }; // initialize left and right borders middle num
     int r_brdr{ mdl };
-    char astrsk{ '*' };
-    char spc{ ' ' };
+    constexpr char astrsk{ '*' };
+    constexpr char spc{ ' ' };
     for (int i = 0; i < num; i += 2) {
         for (int j = 0; j <= num; j++) {
             if ((j >= l_brdr) && (j <= r_brdr)) {
@@ -153,10 +155,9 @@ int build_tree() {
         r_brdr += 1;
     }
 
-    return 0;
 }
 
-int count_bits() {
+void count_bits() {
     int num{};
     std::cout << "Enter a number: ";
     std::cin >> num;
@@ -166,10 +167,9 @@ int count_bits() {
         num /= 2;
     }
     std::cout << "Set bits are " << count << std::endl;
-    return 0;
 }
 
-int is_bit_set() {
+void is_bit_set() {
     int num{};
     int ordr{};
     std::cout << "Enter a number: ";
@@ -178,14 +178,13 @@ int is_bit_set() {
     std::cin >> ordr;
     if (ordr <= 0) {
         std::cout << ordr << " is incorrect a position number";
-        return 0;
+        return;
     }
     ordr -= 1;
     std::cout << (num & (1 << ordr) ? "Yes" : "No") << std::endl;
-    return 0;
 }
 
-int build_num() {
+void build_num() {
     std::cout << "Enter amount of numbers: ";
     int amnt{};
     std::cin >> amnt;
@@ -201,14 +200,13 @@ int build_num() {
         --amnt;
     }
     std::cout << ((sum % 3 == 0) ? "Yes" : "No") << std::endl;
-    return 0;
 }
+
 int main() {
     sum_and_avrg();
     lucky_tckt();
     reverse_num();
     sum_odd_nmbrs();
-    best_divider();
     build_tree();
     count_bits();
     is_bit_set();
