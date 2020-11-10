@@ -72,7 +72,6 @@ void reverse_num() {
     }
 
     std::cout << "Reverse number is " << res << std::endl;
-
 }
 
 void sum_odd_nmbrs() {
@@ -81,15 +80,16 @@ void sum_odd_nmbrs() {
     constexpr int lwr_rng_val{ -60 };
     constexpr int uppr_rng_val{ 90 };
     std::cout << "Type amount of numbers: ";
-    
+
     int rng{};
     std::cin >> rng;
-    
+
     if (rng < lwr_inpt || rng > uppr_inpt) {
-        std::cout << "Value shoudl be in range " << lwr_inpt << "..." << uppr_inpt << std::endl;
+        std::cout << "Value shoudl be in range " << lwr_inpt << "..." << uppr_inpt
+            << std::endl;
         return;
     }
-    
+
     int sum{};
     std::cout << "Type numbers: " << std::endl;
 
@@ -102,8 +102,8 @@ void sum_odd_nmbrs() {
             }
         }
         else {
-            std::cout << num << " is out of range " << lwr_rng_val << ".." << uppr_rng_val
-                << std::endl;
+            std::cout << num << " is out of range " << lwr_rng_val << ".."
+                << uppr_rng_val << std::endl;
         }
     }
 
@@ -154,7 +154,6 @@ void build_tree() {
         l_brdr -= 1;
         r_brdr += 1;
     }
-
 }
 
 void count_bits() {
