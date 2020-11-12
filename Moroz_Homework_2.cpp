@@ -154,7 +154,7 @@ void bestDivider() {
     return;
   }
 
-  int32_t dividerValue{value - 1};
+  int32_t dividerValue{value};
   int32_t maxValue{};
   while (dividerValue > 0) {
     if ((value % dividerValue) == 0) {
