@@ -139,10 +139,10 @@ void insert_elem() {
     }
 }
 int main() {
-    // reverse_str();
-    // to_uppr();
-    // to_lwr();
-    // remove_elmtn();
+    reverse_str();
+    to_uppr();
+    to_lwr();
+    remove_elmtn();
     insert_elem();
     return 0;
 }
