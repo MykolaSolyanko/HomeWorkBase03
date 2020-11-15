@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <chrono>
 #include <iostream>
 #include <random>
@@ -14,26 +13,26 @@ struct test_s {
 /*An array Init----------------------------------------------------------*/
 static constexpr size_t MAX_SIZE{2048};
 static constexpr size_t MIN_SIZE{1};
-static uint32_t array[MAX_SIZE];
+static uint32_t         array[MAX_SIZE];
 /*Declaration of function to perform test--------------------------------*/
-static bool test_init(test_s *obj, const char *_name,
-                      void (*_function)(uint32_t *array, size_t size));
-static void test_sort_quick(uint32_t *array, size_t size);
-static void test_execute(test_s *test, uint32_t *array, size_t size);
+static bool test_init        (test_s *obj, const char *_name,
+                              void (*_function)(uint32_t *array, size_t size));
+static void test_sort_quick  (uint32_t *array, size_t size);
+static void test_execute     (test_s *test, uint32_t *array, size_t size);
 /*Declaration of function to process arrays------------------------------*/
-static bool array_init_rand(uint32_t *array, size_t size, uint32_t MIN,
-                            uint32_t MAX);
-static void array_print(const uint32_t *array, size_t size);
+static bool array_init_rand  (uint32_t *array, size_t size, uint32_t MIN,
+                              uint32_t MAX);
+static void array_print      (const uint32_t *array, size_t size);
 /*Declaratiion of function to set parameter by USER----------------------*/
 static bool param_init_safety(const char *annotation, size_t *const param);
 static bool param_init_safety(const char *annotation, uint32_t *const param);
 static bool param_init_safety(const char *annotation, char *const param);
 /*Declaration of sorting algorytm----------------------------------------*/
-static void swap(uint32_t *a, uint32_t *b);
-static void sort_bubble(uint32_t *array, size_t size);
-static void sort_quick(uint32_t *array, size_t begin, size_t end);
-static void sort_selection(uint32_t *array, size_t size);
-static void sort_insertion(uint32_t *array, size_t size);
+static void swap             (uint32_t *a, uint32_t *b);
+static void sort_bubble      (uint32_t *array, size_t size);
+static void sort_quick       (uint32_t *array, size_t begin, size_t end);
+static void sort_selection   (uint32_t *array, size_t size);
+static void sort_insertion   (uint32_t *array, size_t size);
 /*-----------------------------------------------------------------------*/
 int main() {
   /*Variable to set array length by User*/
@@ -86,7 +85,9 @@ int main() {
     std::cout << "[OTHER]\tEXIT." << std::endl;
     /*Set command to execute*/
     uint32_t id{};
+    std::cout << "-----------------------------------------------" << std::endl;
     param_init_safety("TEST --> ", &id);
+    std::cout << "-----------------------------------------------" << std::endl;
     if (id >= TEST_ARRAY_SIZE) {
       break;
     }
@@ -113,7 +114,6 @@ static bool test_init(test_s *obj, const char *_name,
   if ((obj == nullptr) || (_name == nullptr) || (_function == nullptr)) {
     return false;
   }
-  // std::cout << __PRETTY_FUNCTION__ << std::endl;
   obj->name = _name;
   obj->function = _function;
   return true;
@@ -220,12 +220,8 @@ static size_t partition(uint32_t *array, size_t begin, uint32_t end) {
   auto i{begin};
   auto j{end};
   while (i <= j) {
-    while (array[i] < array[median]) {
-      i++;
-    }
-    while (array[j] > array[median]) {
-      j--;
-    }
+    while (array[i] < array[median]) {i++;}
+    while (array[j] > array[median]) {j--;}
     if (i >= j) {
       break;
     }
