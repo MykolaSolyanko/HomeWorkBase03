@@ -6,28 +6,28 @@ using namespace std;
 class Array {
 private:
   int *arr;
-  int N;
+  int size;
 
 public:
   Array() //конструктор без параметров
   {
-    N = 1;
-    arr = new int[N];
-    for (int i = 0; i < N; i++)
+    size = 1;
+    arr = new int[size];
+    for (int i = 0; i < size; i++)
       arr[i] = 0;
   }
-  Array(int n) //конструктор с одним параметром
+  Array(int s) //конструктор с одним параметром
   {
-    N = n;
-    arr = new int[N];
+    size = s;
+    arr = new int[size];
     set();
   }
 
   Array(const Array &source) //конструктор копирования
   {
-    N = source.N;
-    arr = new int[N];
-    for (int i = 0; i < N; i++)
+    size = source.size;
+    arr = new int[size];
+    for (int i = 0; i < size; i++)
       arr[i] = source.arr[i];
   }
 
@@ -37,12 +37,12 @@ public:
   }
   int getsize() //возвращение размера массива
   {
-    return N;
+    return size;
   }
 
   void print() //показать массив
   {
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < size; i++)
       cout << arr[i] << "  ";
     cout << endl;
   }
@@ -50,19 +50,18 @@ public:
   void set() //ввод случайных элементов массива
   {
     srand(time(0));
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < size; i++)
       arr[i] = rand() % 100;
   }
 
   void sort() //сортировка массива по возрастанию
   {
-    int temp; // переменные для хранения мин-ного значения и индекса массива
-    for (int i = 0; i < N; i++) {
-      temp = arr[i]; //инициализируем врем. переменную
-      for (int j = i; j < N; j++)
-        if (temp > arr[j]) //находим минимальный элемент
-        {
-          temp = arr[j]; //делаем перестановку
+    int temp;
+    for (int i = 0; i < size; i++) {
+      temp = arr[i];
+      for (int j = i; j < size; j++)
+        if (temp > arr[j]) {
+          temp = arr[j];
           arr[j] = arr[i];
           arr[i] = temp;
         }
@@ -70,7 +69,7 @@ public:
   }
   int max() {
     sort();
-    return arr[N - 1];
+    return arr[size - 1];
   }
   int min() {
     sort();
