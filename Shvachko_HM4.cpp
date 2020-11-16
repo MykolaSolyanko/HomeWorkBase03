@@ -79,12 +79,11 @@ public:
 };
 
 int main() {
-  setlocale(LC_CTYPE, "rus");
   int n;
-  cout << "Введите размер массива: ";
+  cout << "Enter size of array: ";
   cin >> n;
   Array array(n);
-  cout << "Массив" << endl;
+  cout << "Array:" << endl;
   array.print();
   array.sort();
   array.print();
