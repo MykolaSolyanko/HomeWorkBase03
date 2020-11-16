@@ -23,13 +23,13 @@ int main() {
   }
 
   int array[Size_Array];
-
-  std::cout << "Choose a way to fill the array:\n"
-            << "1 - fill random\n"
-            << "2 - fill by hand\n";
-
+  
   constexpr char Random{'1'};
   constexpr char ByHand{'2'};
+
+  std::cout << "Choose a way to fill the array:\n"
+            << Random <<" - fill random\n"
+            << ByHand <<" - fill by hand\n";
 
   char choose{};
   std::cin >> choose;
@@ -81,7 +81,6 @@ void fill_array_random(int *begin, const int *const end) {
   while (begin != end) {
     *begin++ = rd() % 100;
   }
-  std::cout << '\n';
 }
 
 void fill_array_by_hand(int *begin, size_t *const end) {
@@ -98,7 +97,6 @@ void fill_array_by_hand(int *begin, size_t *const end) {
       *begin++ = number;
     }
   }
-  std::cout << '\n';
 }
 
 void bubble_sort(int *begin, int *const end) {
@@ -107,7 +105,7 @@ void bubble_sort(int *begin, int *const end) {
     return;
   }
   bool swap = true;
-  for (int *i = end; i > begin && swap; --i) {
+  for (int *i = end; (i > begin) && swap; --i) {
     swap = false;
     for (int *n = begin; n < i - 1; ++n) {
       if (*n > *(n + 1)) {
