@@ -1,0 +1,236 @@
+#include <functional>
+#include <iostream>
+#include <random>
+
+constexpr size_t ARRAY_SIZE{100};
+char array_char[ARRAY_SIZE + 1];
+uint32_t array_uint32[ARRAY_SIZE];
+double array_double[ARRAY_SIZE];
+
+static void     sort_bubble      (double *array, size_t size,
+                                  std::function<bool(double a, double b)> comparator);
+static void     sort_bubble      (uint32_t *array, size_t size,
+                                  std::function<bool(uint32_t a, uint32_t b)> comparator);
+static void     sort_bubble      (char *array, size_t size,
+                                  std::function<bool(char a, char b)> comparator);
+static uint32_t rand_uint32      (uint32_t MIN, uint32_t MAX);
+static char     rand_char        (char MIN, char MAX);
+static bool     array_rand_string(char *array, size_t size);
+static bool     array_init_rand  (uint32_t *array, size_t size, uint32_t MIN,
+                                  uint32_t MAX);
+static bool     array_init_rand  (double *array, size_t size, double MIN, double MAX);
+static void     array_print      (const uint32_t *array, size_t size);
+static void     array_print      (const double *array, size_t size);
+
+int main() {
+  constexpr double MIN{10.0};
+  constexpr double MAX{1238.0};
+
+  array_init_rand(array_uint32, ARRAY_SIZE, static_cast<uint32_t>(MIN),
+                  static_cast<uint32_t>(MAX));
+
+  std::cout << std::endl
+            << "Unsorted Array of unsigned int values:" << std::endl;
+  array_print(array_uint32, ARRAY_SIZE);
+
+  sort_bubble(array_uint32, ARRAY_SIZE,
+              [](uint32_t a, uint32_t b) { return a > b; });
+  std::cout << std::endl << "Sorted Array of unsigned int values:" << std::endl;
+  array_print(array_uint32, ARRAY_SIZE);
+
+  array_init_rand(array_double, ARRAY_SIZE, MIN, MAX);
+  std::cout << std::endl << "Unsorted Array of double values:" << std::endl;
+  array_print(array_double, ARRAY_SIZE);
+
+  sort_bubble(array_double, ARRAY_SIZE,
+              [](double a, double b) { return a > b; });
+  std::cout << std::endl << "Sorted Array of double:" << std::endl;
+  array_print(array_double, ARRAY_SIZE);
+
+  array_rand_string(array_char, ARRAY_SIZE);
+  std::cout << std::endl << "Unsorted String:" << std::endl;
+  std::cout << array_char << std::endl;
+
+  sort_bubble(array_char, ARRAY_SIZE - 1, [](char a, char b) {
+    std::function<bool(char)> is_diget = [](char ch) {
+      return ch >= '0' && ch <= '9';
+    };
+    std::function<bool(char)> is_small = [](char ch) {
+      return ch >= 'a' && ch <= 'z';
+    };
+    std::function<bool(char)> is_big = [](char ch) {
+      return ch >= 'A' && ch <= 'Z';
+    };
+
+    a = is_diget(a) ? 3 : a;
+    a = is_small(a) ? 2 : a;
+    a = is_big(a) ? 1 : a;
+
+    b = is_diget(b) ? 3 : b;
+    b = is_small(b) ? 2 : b;
+    b = is_big(b) ? 1 : b;
+
+    return a > b;
+  });
+  std::cout << std::endl << "Sorted String:" << std::endl;
+  std::cout << array_char << std::endl;
+  return EXIT_SUCCESS;
+}
+
+static void sort_bubble(double *array, size_t size,
+                        std::function<bool(double a, double b)> comparator) {
+  if ((array == nullptr) || (size == 0)) {
+    return;
+  }
+  for (size_t i = 0; i < size - 1; i++) {
+    bool flag = false;
+    for (size_t j = 0; j < size - i - 1; j++) {
+      if (comparator(array[j], array[j + 1])) {
+        flag = true;
+        auto temp{array[j]};
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+    if (!flag) {
+      return;
+    }
+  }
+}
+
+static void
+sort_bubble(uint32_t *array, size_t size,
+            std::function<bool(uint32_t a, uint32_t b)> comparator) {
+  if ((array == nullptr) || (size == 0)) {
+    return;
+  }
+  for (size_t i = 0; i < size - 1; i++) {
+    bool flag = false;
+    for (size_t j = 0; j < size - i - 1; j++) {
+      if (comparator(array[j], array[j + 1])) {
+        flag = true;
+        auto temp{array[j]};
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+    if (!flag) {
+      return;
+    }
+  }
+}
+
+static void sort_bubble(char *array, size_t size,
+                        std::function<bool(char a, char b)> comparator) {
+  if ((array == nullptr) || (size == 0)) {
+    return;
+  }
+  for (size_t i = 0; i < size - 1; i++) {
+    bool flag = false;
+    for (size_t j = 0; j < size - i - 1; j++) {
+      if (comparator(array[j], array[j + 1])) {
+        flag = true;
+        auto temp{array[j]};
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+    if (!flag) {
+      return;
+    }
+  }
+}
+
+static uint32_t rand_uint32(uint32_t MIN, uint32_t MAX) {
+  // Will be used to obtain a seed for the random number engine
+  std::random_device rd;
+  std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+  std::uniform_int_distribution<> distrib(MIN, MAX);
+  // Use `distrib` to transform the random unsigned int generated by gen into
+  // an int in [MIN, MAX]
+  return distrib(gen);
+}
+
+static char rand_char(char MIN, char MAX) {
+  /*Will be used to obtain a seed for the random number engine*/
+  std::random_device rd;
+  /*Standard mersenne_twister_engine seeded with rd()*/
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distrib(MIN, MAX);
+  // Use `distrib` to transform the random unsigned int generated by gen into
+  // an int in [MIN, MAX]
+  return static_cast<char>(distrib(gen));
+}
+
+static bool array_rand_string(char *array, size_t size) {
+  if ((array == nullptr) || (size < 2)) {
+    return false;
+  }
+  /*Table of ranges to generate string*/
+  constexpr char range[3][2] = {{'a', 'z'}, {'A', 'Z'}, {'0', '9'}};
+  /*Filling the string*/
+  for (size_t i = 0; i < size - 1; i++) {
+    /*Choose random row from range table*/
+    auto row = rand_uint32(0, 2);
+    /*Generate random character according the range*/
+    array[i] = rand_char(range[row][0], range[row][1]);
+  }
+  array[size - 1] = '\0';
+  return true;
+}
+
+static bool array_init_rand(uint32_t *array, size_t size, uint32_t MIN,
+                            uint32_t MAX) {
+  if ((array == nullptr) || (size == 0)) {
+    return false;
+  }
+  // Will be used to obtain a seed for the random number engine
+  std::random_device rd;
+  // Standard mersenne_twister_engine seeded with rd()
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distrib(MIN, MAX);
+  for (size_t i = 0; i < size; i++) {
+    // Use `distrib` to transform the random unsigned int generated by gen into
+    // an int in [MIN, MAX]
+    array[i] = distrib(gen);
+  }
+  return true;
+}
+
+static bool array_init_rand(double *array, size_t size, double MIN,
+                            double MAX) {
+  if ((array == nullptr) || (size == 0)) {
+    return false;
+  }
+  // Will be used to obtain a seed for the random number engine
+  std::random_device rd;
+  // Standard mersenne_twister_engine seeded with rd()
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<> distrib(MIN, MAX);
+  for (size_t i = 0; i < size; i++) {
+    // Use `distrib` to transform the random unsigned int generated by gen into
+    // an int in [MIN, MAX]
+    array[i] = distrib(gen);
+  }
+  return true;
+}
+
+static void array_print(const uint32_t *array, size_t size) {
+  if ((array == nullptr) || (size == 0)) {
+    return;
+  }
+  for (size_t i = 0; i < size; i++) {
+    std::cout << array[i] << '\t';
+  }
+  std::cout << std::endl;
+}
+
+static void array_print(const double *array, size_t size) {
+  if ((array == nullptr) || (size == 0)) {
+    return;
+  }
+  for (size_t i = 0; i < size; i++) {
+    std::cout << array[i] << '\t';
+  }
+  std::cout << std::endl;
+}
