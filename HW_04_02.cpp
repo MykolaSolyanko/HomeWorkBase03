@@ -2,10 +2,10 @@
 #include <iostream>
 #include <random>
 
-constexpr size_t ARRAY_SIZE{100};
-char array_char[ARRAY_SIZE + 1];
-uint32_t array_uint32[ARRAY_SIZE];
-double array_double[ARRAY_SIZE];
+static constexpr size_t ARRAY_SIZE{100};
+static char             array_char[ARRAY_SIZE + 1];
+static uint32_t         array_uint32[ARRAY_SIZE];
+static double           array_double[ARRAY_SIZE];
 
 static void     sort_bubble      (double *array, size_t size,
                                   std::function<bool(double a, double b)> comparator);
