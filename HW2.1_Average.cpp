@@ -13,7 +13,7 @@ int main() {
     ++counter;
   }
   std::cerr << "Here is the sum of the numbers: " << sum << '\n';
-  float average{static_cast<float>(sum) / static_cast<float>(counter)};
+  float average{static_cast<float>(sum) / counter};
   std::cerr << "Here is the average of the numbers: " << average << '\n';
   return 0;
 }
