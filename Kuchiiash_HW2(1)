@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+void main() {
+
+  int n;
+  int sum = 0;
+  float div;
+  int counter = 0;
+
+  cout << "Enter number:" << endl;
+  cin >> n;
+
+  while (n != 0) {
+    sum += n % 10;
+    n /= 10;
+    counter++;
+  }
+
+  cout << "sum = " << sum << endl;
+
+  div = (float)sum / counter;
+
+  cout << "div = " << div << endl;
+}
