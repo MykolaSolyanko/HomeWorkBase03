@@ -1,20 +1,23 @@
 #include <iostream>
-#include <limits>
 
 int main() {
   int ticket_value{0};
+  std::cout << "Please, enter you number" << std::endl;
   std::cin >> ticket_value;
-  if (ticket_value < 0 || ticket_value > 999999 || !(std::cin)) {
-    std::cout << "You entered wrong number. Please, try again" << '\n';
+  constexpr int min_ticket_value{0};
+  constexpr int max_ticket_value{999999};
+  if (ticket_value < min_ticket_value || ticket_value > max_ticket_value ||
+      !(std::cin)) {
+    std::cerr << "You entered wrong number. Please, try again" << '\n';
     return 0;
   }
   int second_half{0};
-  for (int i = 0; i < 3; ++i) {
+  for (int i = 1; i <= 3; ++i) {
     second_half += (ticket_value % 10);
     ticket_value /= 10;
   }
   int first_half{0};
-  for (int i = 0; i < 3; ++i) {
+  for (int i = 1; i <= 3; ++i) {
     first_half += (ticket_value % 10);
     ticket_value /= 10;
   }
