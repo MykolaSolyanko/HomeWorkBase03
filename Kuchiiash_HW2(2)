@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+  char builet[7];
+
+  setlocale(0, "");
+
+  cout << "Введите 6-ти значное число:" << endl;
+  cin >> builet;
+
+  if (builet[0] + builet[1] + builet[2] == builet[3] + builet[4] + builet[5]) {
+    cout << "Билетик счастливый" << endl;
+  } else {
+    cout << "Билетик не счастливый:с" << endl;
+  }
+  return 0;
+}
