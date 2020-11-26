@@ -1,30 +1,24 @@
-#include <cstdint>
-#include <cstdio>
 #include <iostream>
 
 int main() {
-  size_t kSize{};
-  std::cerr << "Enter a number of symbols you want to use" << '\n';
-  std::cin >> kSize;
-  if (!(std::cin) || kSize < 1) {
-    std::cerr << "Wrong number. Try again" << '\n';
-    return 0;
-  }
-  ++kSize;
+  std::cout << "Please, enter your string (up to 5 symbols)" << '\n';
+  constexpr size_t kSize{5};
   char normal_array[kSize]{};
-  std::cerr << "Please, enter your string" << '\n';
-  std::cin >> normal_array;
-  if (!(std::cin)) {
-    std::cout << "You entered a wrong symbol. Try again" << '\n';
+  if (!(std::cin >> normal_array)) {
+    std::cerr << "You entered a wrong symbol. Try again" << '\n';
     return 0;
   }
-  char reverse_array[kSize]{};
-  for (size_t index = 0; index < kSize; ++index) {
-    reverse_array[index] = normal_array[kSize - 1 - index];
-    if (reverse_array[index] != '\0') {
-      std::cerr << reverse_array[index];
-    }
+  std::cout << "Here is reverse string" << std::endl;
+  size_t mid_array{kSize / 2};
+  for (size_t index = 0; index < mid_array; ++index) {
+    char tmp;
+    tmp = normal_array[index];
+    normal_array[index] = normal_array[kSize - 1 - index];
+    normal_array[kSize - 1 - index] = tmp;
   }
-  std::cerr << '\n';
+  for (char elem : normal_array) {
+    std::cout << elem;
+  }
+  std::cout << '\n';
   return 0;
 }
