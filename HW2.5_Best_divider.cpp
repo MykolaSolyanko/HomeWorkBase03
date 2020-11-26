@@ -1,9 +1,8 @@
-#include <cstdint>
 #include <iostream>
 
 int main() {
   uint32_t input_number{0};
-  std::cerr << "Please, enter your number" << '\n';
+  std::cout << "Please, enter your number" << '\n';
   std::cin >> input_number;
   int best_divider{0};
   for (int32_t divider = 1; divider <= input_number; ++divider) {
@@ -25,6 +24,6 @@ int main() {
       best_divider = div_copy;
     }
   }
-  std::cerr << "The best divider is " << best_divider << '\n';
+  std::cout << "The best divider is " << best_divider << '\n';
   return 0;
 }
