@@ -1,0 +1,25 @@
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+int main() {
+  setlocale(0, "");
+
+  cout << "Введите кол-во цифр которое будет в вашем числе: " << endl;
+  int amount;
+  cin >> amount;
+  cout << "Введите ваше число: " << endl;
+  int number;
+  cin >> number;
+  if (number > 0 && number % 10 != 0) {
+    for (int i = 0; i < amount; ++i)
+      cout << static_cast<int>(number) / static_cast<int>(pow(10, i)) % 10;
+  } else if (number == 0) {
+    for (int i = 0; i < amount; ++i)
+      cout << "0";
+  } else if (number < 0) {
+    cout << "-";
+    for (int i = 0; i < amount; ++i)
+      cout << static_cast<int>(-number) / static_cast<int>(pow(10, i)) % 10;
+  }
+}
