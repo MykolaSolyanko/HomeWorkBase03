@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+  int array[50];
+  constexpr int kMinRange{-60};
+  constexpr int kMaxRange{90};
+  setlocale(0, "");
+
+  cout << "Введите числа в промежутке:" << kMinRange << " до " << kMaxRange
+       << " Включая " << endl;
+  for (int i = 0; i < 50; i++) {
+    cin >> array[i];
+
+    if (array[i] < kMinRange || array[i] > kMaxRange) {
+      cout << "Число не входит в промежуток" << endl;
+      return -1;
+    } else {
+      cout << "Число=" << array[i] << endl;
+    }
+  }
+  int sum{};
+  for (int i = 0; i < 50; i++) {
+    if (array[i] % 2 != 0) {
+      sum += array[i];
+    }
+  }
+  cout << "Сумма=" << sum << endl;
+  return 0;
+}
