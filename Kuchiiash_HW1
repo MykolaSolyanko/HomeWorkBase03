@@ -1,0 +1,35 @@
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+int main() {
+  float a;
+  float b;
+  float c;
+  float x;
+  const int value = 2;
+  const int value2 = 4;
+  while (true) {
+    cout << "a = ";
+    cin >> a;
+    cout << "b = ";
+    cin >> b;
+    cout << "c = ";
+    cin >> c;
+    if (pow(b, 2) >= value2 * a * c) {
+      x = (-b + sqrt(pow(b, 2) - value2 * a * c)) / (value * a);
+      cout << "x1 =" << x << endl;
+      x = (-b - sqrt(pow(b, 2) - value2 * a * c)) / (value * a);
+      cout << "x2 =" << x << endl;
+    } else {
+      cout << "D < 0" << endl;
+    }
+    cout << "Continue? (y/n)" << endl;
+    char ch;
+    cin >> ch;
+    if (ch != 'y') {
+      break;
+    }
+  }
+  return 0;
+}
