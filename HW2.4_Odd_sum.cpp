@@ -3,7 +3,9 @@
 int main() {
   std::cout << "Enter a size of the number list" << std::endl;
   size_t kSize{0};
-  if (!(std::cin >> kSize) || kSize > 50 || kSize < 1) {
+  constexpr int min_list_size{1};
+  constexpr int max_list_size{50};
+  if (!(std::cin >> kSize) || kSize > max_list_size || kSize < min_list_size) {
     std::cerr << "Wrong number. Try again" << std::endl;
     return 0;
   }
