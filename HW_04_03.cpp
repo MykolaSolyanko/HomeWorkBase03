@@ -2,76 +2,76 @@
 #include <iostream>
 #include <random>
 
-static constexpr size_t MSG_SIZE{192};
-static constexpr size_t TABLE_ROW{MSG_SIZE};
-static constexpr size_t TABLE_COL{MSG_SIZE};
+static constexpr size_t MSG_SIZE{1024};
 
-struct packet_t {
+struct data_t {
+  size_t size;
+  char data[MSG_SIZE];
+};
+
+struct crypto_t {
   size_t col;
   size_t row;
-  char msg[TABLE_COL][TABLE_ROW];
 };
+
+static crypto_t Alisa_crypto{};
+static data_t Alisa_enc_message{};
 
 const char *Message{"The first half of life consists of the capacity to "
                     "enjoy without the chance, the last half consists of "
                     "the chance without the capacity. Mark Twain"};
 
-static packet_t Alisa{};
-static packet_t Bob{};
-static char Bob_decoded_message[MSG_SIZE * MSG_SIZE]{};
+static crypto_t Bob_crypto{};
+static data_t Bob_enc_message{};
+static char Bob_dec_message[MSG_SIZE]{};
 
-static void crypto_write_cols(packet_t *dstr, const char *src);
-static void crypto_read_cols(const packet_t *src, char *dstr);
-static size_t msg_len(const char *msg);
-static uint32_t rand_uint32(uint32_t MIN, uint32_t MAX);
-static size_t best_devider(size_t value);
-static size_t devider_quantity(size_t value);
-static void ALISA_Encode(packet_t *enc_data, const char *message);
-static void Bob_Decode(const packet_t *enc_data, char *message);
-static void Serial_data_exchange(void *receiver_buff, void *transmitter_buff,
-                                 size_t size);
-
-int main() {
-  std::cout << std::endl;
-
-  ALISA_Encode(&Alisa, Message);
-  Serial_data_exchange(&Bob, &Alisa, sizeof(packet_t));
-  // memcpy(&Bob, &Alisa, sizeof(packet_t));
-  Bob_Decode(&Bob, Bob_decoded_message);
-  std::cout << "Decoded message is: " << Bob_decoded_message << std::endl;
-  return EXIT_SUCCESS;
+static void crypto_print(const char *data, crypto_t crypto) {
+  std::cout << __PRETTY_FUNCTION__ << std::endl;
+  for (size_t iRow = 0; iRow < crypto.row; iRow++) {
+    std::cout << "ROW: " << iRow << " ";
+    for (size_t iCol = 0; iCol < crypto.col; iCol++) {
+      std::cout << *(data + iRow * crypto.col + iCol) << '\t';
+    }
+    std::cout << std::endl;
+  }
 }
 
-static void crypto_write_cols(packet_t *dstr, const char *src) {
+static void crypto_write_cols(data_t *dstr, const crypto_t crypto,
+                              const char *src) {
   if ((dstr == nullptr) || (src == nullptr)) {
+    std::cout << "ERROR: " << __PRETTY_FUNCTION__ << std::endl;
     return;
   }
-  for (size_t i = 0; i < dstr->col; i++) {
-    for (size_t j = 0; j < dstr->row; j++) {
+  dstr->size = 0;
+  for (size_t iCol = 0; iCol < crypto.col; iCol++) {
+    for (size_t iRow = 0; iRow < crypto.row; iRow++) {
+      *(dstr->data + iRow * crypto.col + iCol) = *src;
       if (*src == '\0') {
-        dstr->msg[j][i] = *src;
         return;
       }
-      dstr->msg[j][i] = *src;
-      // std::cout << *src << '\t' << dstr->msg[j][i] << std::endl;
       src++;
+      dstr->size++;
     }
   }
 }
 
-static void crypto_read_cols(const packet_t *src, char *dstr) {
-  if ((dstr == nullptr) || (src == nullptr)) {
+static void crypto_read_cols(const data_t *src, const crypto_t crypto,
+                             char *dstr) {
+  if ((dstr == nullptr) || (src == nullptr) ||
+      (src->size != (crypto.row * crypto.col))) {
+    std::cout << "ERROR: " << __PRETTY_FUNCTION__ << std::endl;
     return;
   }
   size_t index{};
-  for (size_t i = 0; i < src->col; i++) {
-    for (size_t j = 0; j < src->row; j++) {
-      if (src->msg[j][i] == '\0') {
-        return;
-      }
-      dstr[index++] = src->msg[j][i];
+  for (size_t iCol = 0; iCol < crypto.col; iCol++) {
+    for (size_t iRow = 0; iRow < crypto.row; iRow++) {
+      // if (*(src + iRow * crypto.row + iCol) == '\0') {
+      //   return;
+      // }
+      dstr[index++] = *(src->data + iRow * crypto.col + iCol);
     }
   }
+  std::cout << std::endl;
 }
 
 static size_t msg_len(const char *msg) {
@@ -109,47 +109,69 @@ static size_t devider_quantity(size_t value) {
   return quantity;
 }
 
-static void ALISA_Encode(packet_t *enc_data, const char *message) {
-  if ((enc_data == nullptr) || (message == nullptr)) {
+static void ALISA_crypto_key_encode(crypto_t *crypto, const char *message) {
+  if ((crypto == nullptr) || (message == nullptr)) {
     return;
   }
   auto len{msg_len(message)};
-  if ((len % 4) == 1) {
-    len++;
-  }
-  enc_data->col = len;
-  for (size_t rand_x = rand_uint32(1, devider_quantity(enc_data->col)); rand_x;
+  crypto->col = len;
+  for (size_t rand_x = rand_uint32(1, devider_quantity(crypto->col)); rand_x;
        rand_x--) {
-    enc_data->col = best_devider(enc_data->col);
+    crypto->col = best_devider(crypto->col);
   }
-  enc_data->row = len / enc_data->col;
+  crypto->row = len / crypto->col;
   std::cout << __PRETTY_FUNCTION__ << std::endl;
   std::cout << "Message len = " << len << std::endl;
-  std::cout << "col = " << enc_data->col << std::endl;
-  std::cout << "row = " << enc_data->row << std::endl;
-  crypto_write_cols(enc_data, message);
+  std::cout << "col = " << crypto->col << std::endl;
+  std::cout << "row = " << crypto->row << std::endl;
 }
 
-static void Bob_Decode(const packet_t *enc_data, char *message) {
+static void ALISA_Encode(data_t *enc_data, const crypto_t crypto,
+                         const char *message) {
   if ((enc_data == nullptr) || (message == nullptr)) {
     return;
   }
-  std::cout << __PRETTY_FUNCTION__ << std::endl;
-  crypto_read_cols(enc_data, message);
-  std::cout << "Message len = " << msg_len(message) << std::endl;
-  std::cout << "col = " << enc_data->col << std::endl;
-  std::cout << "row = " << enc_data->row << std::endl;
+  crypto_write_cols(enc_data, crypto, message);
 }
 
-static void Serial_data_exchange(void *receiver_buff, void *transmitter_buff,
-                                 size_t size) {
-  if ((receiver_buff == nullptr) || (transmitter_buff == nullptr) ||
-      (size == 0)) {
+static void BOB_crypto_key_decode(crypto_t *crypto,
+                                  const data_t *encoded_data) {
+  if ((crypto == nullptr) || (encoded_data == nullptr) ||
+      (encoded_data->size != sizeof(crypto_t))) {
     return;
   }
-  uint8_t *dstr = (uint8_t *)receiver_buff;
-  uint8_t *src = (uint8_t *)transmitter_buff;
-  for (size_t i = 0; i < size; i++) {
-    dstr[i] = src[i];
+  *crypto = *((crypto_t *)encoded_data->data);
+}
+
+static void BOB_Decode(const data_t *enc_data, const crypto_t crypto,
+                       char *message) {
+  if ((enc_data == nullptr) || (message == nullptr) ||
+      (enc_data->size != (crypto.col * crypto.row))) {
+    return;
   }
+  crypto_read_cols(enc_data, crypto, message);
+}
+
+int main() {
+  ALISA_crypto_key_encode(&Alisa_crypto, Message);
+
+  Alisa_enc_message.size = sizeof(Alisa_crypto);
+  memcpy(Alisa_enc_message.data, &Alisa_crypto, Alisa_enc_message.size);
+
+  Bob_enc_message.size = Alisa_enc_message.size;
+  memcpy(Bob_enc_message.data, Alisa_enc_message.data, Alisa_enc_message.size);
+
+  BOB_crypto_key_decode(&Bob_crypto, &Bob_enc_message);
+
+  ALISA_Encode(&Alisa_enc_message, Alisa_crypto, Message);
+
+  crypto_print(Alisa_enc_message.data, Alisa_crypto);
+
+  Bob_enc_message.size = Alisa_enc_message.size;
+  std::cout << "Bob size: " << Bob_enc_message.size << std::endl;
+  memcpy(Bob_enc_message.data, Alisa_enc_message.data, Alisa_enc_message.size);
+
+  BOB_Decode(&Bob_enc_message, Bob_crypto, Bob_dec_message);
+  std::cout << "Decoded message is: " << Bob_dec_message << std::endl;
+  return EXIT_SUCCESS;
 }
