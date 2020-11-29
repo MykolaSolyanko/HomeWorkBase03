@@ -151,6 +151,9 @@ structNode *FindByValue(structList &in_oList, const int in_iValue) {
     }
     oNode = oNode->oNext;
   }
+  if (bEqual(oNode, in_iValue)) {
+      return oNode;
+  }
   return nullptr;
 }
 
@@ -164,6 +167,9 @@ bool bCheckNode(structList &in_oList, structNode *oNodeToCheck) {
       return true;
     }
     oNode = oNode->oNext;
+  }
+  if (bEqual(oNodeToCheck, oNode)) {
+    return true;
   }
   return false;
 }
