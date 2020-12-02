@@ -3,7 +3,7 @@
 #include <random>
 
 void fill_array_random(int *begin, const int *const end);
-void fill_array_by_hand(int *begin, size_t *const end);
+void fill_array_by_hand(int *begin, c const int *const end);
 void bubble_sort(int *begin, int *const end);
 void quick_sort(int *begin, int *end);
 
@@ -39,7 +39,7 @@ int main() {
       fill_array_random(array, array + Size_Array);
       break;
     case ByHand:
-      fill_array_by_hand(array, &Size_Array);
+      fill_array_by_hand(array, array + Size_Array);
       break;
     default:
       std::cout << "incorrect input\n";
@@ -83,14 +83,14 @@ void fill_array_random(int *begin, const int *const end) {
   }
 }
 
-void fill_array_by_hand(int *begin, size_t *const end) {
+void fill_array_by_hand(int *begin, const int *const end) {
   if (begin == nullptr || end == nullptr) {
     std::cout << "One of the argument is null\n";
     return;
   }
   std::cout << "Enter " << *end << " integers in the array\n";
 
-  for (size_t i = 0; i < *end; ++i) {
+  for (int i = 0; i < *end; ++i) {
     int number{};
     std::cin >> number;
     if (std::cin) {
