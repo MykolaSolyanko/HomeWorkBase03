@@ -1,7 +1,6 @@
 #include <iostream>
 #include <locale>
 
-
 int get_str_len(char* str) {
     int count{};
     while (str[count] != '\0') {
@@ -80,7 +79,6 @@ void to_lwr() {
         else {
             arr[i] = arr[i];
         }
-
     }
 
     std::cout << "Result string in lower case: ";
@@ -157,4 +155,3 @@ int main() {
     insert_elem();
     return 0;
 }
-
