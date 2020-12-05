@@ -9,60 +9,15 @@ struct Queue {
   Node *first{};
   Node *last{};
   size_t size{};
+ ~Queue();
 };
 
-void push_queue(Queue *q);
-void pop_queue(Queue *q);
-int front_queue(Queue *q);
-int back_queue(Queue *q);
-bool empty_queue(Queue *q);
-
-int main() {
-  // create the queue of integers
-  Queue q{};
-
-  do {
-    std::cout << "Enter what do you want do?\n"
-              << "1 - add integer to end of queue;\n"
-              << "2 - delete integer from front of queue;\n"
-              << "3 - return first element;\n"
-              << "4 - return last element;\n"
-              << "5 - check if the queue is empty;\n"
-              << "0 - Exit.\n";
-
-    enum class List { EXIT, PUSH, POP, FRONT, BACK, EMPTY };
-
-    int choose{};
-    std::cin >> choose;
-
-    List queue_method = static_cast<List>(choose);
-
-    switch (queue_method) {
-    case List::PUSH:
-      push_queue(&q);
-      break;
-    case List::POP:
-      pop_queue(&q);
-      break;
-    case List::FRONT:
-      std::cout << "The first value is " << front_queue(&q) << '\n';
-      break;
-    case List::BACK:
-      std::cout << "The last value is " << back_queue(&q) << '\n';
-      break;
-    case List::EMPTY:
-      std::cout << ((empty_queue(&q)) ? "NO EMPTY\n" : "EMPTY\n");
-      break;
-    case List::EXIT:
-      return 0;
-    default:
-      std::cout << "incorrect input\n";
-      continue;
-    }
-
-  } while (true);
-
-  return 0;
+Queue::~Queue() {
+  while (first != nullptr) {
+    Node *tmp = first;
+    first = first->link;
+    delete tmp;
+  }
 }
 
 void push_queue(Queue *q) {
@@ -73,7 +28,7 @@ void push_queue(Queue *q) {
     std::cout << "incorrect input\n";
     return;
   }
-  Node *new_node = new Node;
+  Node *new_node = new Node{};
   new_node->data = var;
   new_node->link = nullptr;
   if (q->first == nullptr) {
@@ -96,7 +51,7 @@ void pop_queue(Queue *q) {
   delete tmp;
 }
 
-int front_queue(Queue *q) {
+int front_queue(const Queue *q) {
   if (q == nullptr) {
     std::cout << "incorrect parametr\n";
     return -1;
@@ -104,12 +59,48 @@ int front_queue(Queue *q) {
   return q->first->data;
 }
 
-int back_queue(Queue *q) {
-  if (q == nullptr) {
-    std::cout << "incorrect parametr\n";
-    return -1;
-  }
-  return q->last->data;
+bool empty_queue(const Queue *q) { return (q == nullptr || q->first == nullptr }
+
+int main() {
+  // create the queue of integers
+  Queue q{};
+
+  do {
+    std::cout << "Enter what do you want do?\n"
+              << "1 - add integer to end of queue;\n"
+              << "2 - delete integer from front of queue;\n"
+              << "3 - return first element;\n"
+              << "4 - check if the queue is empty;\n"
+              << "0 - Exit.\n";
+
+    enum QueueMetods { EXIT, PUSH, POP, FRONT, EMPTY };
+
+    int choose{};
+    std::cin >> choose;
+
+    switch (choose) {
+    case PUSH:
+      push_queue(&q);
+      break;
+    case POP:
+      pop_queue(&q);
+      break;
+    case FRONT:
+      std::cout << "The first value is " << front_queue(&q) << '\n';
+      break;
+    case EMPTY:
+      std::cout << ((empty_queue(&q)) ? "NO EMPTY\n" : "EMPTY\n");
+      break;
+    case EXIT:
+      return 0;
+    default:
+      std::cout << "incorrect input\n";
+      continue;
+    }
+
+  } while (true);
+
+  return 0;
 }
 
-bool empty_queue(Queue *q) { return (q->first == nullptr) ? false : true; }
+
