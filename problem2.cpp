@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-bool is_whole(const std::string &str);
+bool isAllDigits(const std::string &str);
 bool is_digit(const std::string &str);
 void revert(std::string &str);
 void shift_left(std::string &str);
@@ -11,10 +11,14 @@ int main() {
   std::cout << "Enter the string of the positive integers\n";
 
   std::string str;
-  std::cin >> str;
+  getline(std::cin, str);
   if (!is_digit(str)) {
     std::cout << "incorrect input\n";
     return -1;
+  }
+    if(str.empty()){
+      std::cout << "String is empty\n";
+      return -2;
   }
   std::cout << "Enter the size piece of the string\n";
 
@@ -28,9 +32,8 @@ int main() {
   size_t i{0};
 
   while (Number_Parts > 0) {
-    std::string tmp_str;
-    tmp_str = str.substr(i, Size_Piece);
-    if (is_whole(tmp_str)) {
+    std::string tmp_str = str.substr(i, Size_Piece);
+    if (isAllDigits(tmp_str)) {
       revert(tmp_str);
     } else {
       shift_left(tmp_str);
@@ -45,7 +48,7 @@ int main() {
   return 0;
 }
 
-bool is_whole(const std::string &str) {
+bool isAllDigits(const std::string &str) {
   long long str_in_int = std::stoull(str);
   long long sum_cubes_digit{};
   while (str_in_int != 0) {
@@ -53,7 +56,7 @@ bool is_whole(const std::string &str) {
     str_in_int /= 10;
     sum_cubes_digit += std::pow(digit, 3);
   }
-  return (sum_cubes_digit % 2 == 0) ? true : false;
+  return sum_cubes_digit % 2 == 0
 }
 
 bool is_digit(const std::string &str) {
