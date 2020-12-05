@@ -1,169 +1,127 @@
+#include <cmath>
 #include <iostream>
 
-struct Node {
-  int data;
-  Node *link;
-};
-
-class List {
+class Shape {
 public:
-  List();
-  List(int _data);
-  List(const List &other);
-  ~List();
-
-  int get_front() const;
-  int get_back() const;
-  void print() const;
-  size_t size() const { return count; }
-  bool is_empty() const { return first == nullptr; }
-
-  void push_back(int a);
-  void push_front(int a);
-  void pop_front();
-
-private:
-  Node *first{};
-  Node *last{};
-  size_t count{};
+  virtual void calc_square() const = 0;
+  virtual void draw() const = 0;
 };
 
-List::List() : count{1} {
-  first = new Node;
-  first->data = 0;
-  first->link = nullptr;
-  last = first;
-}
+class Square : public Shape {
+public:
+  Square() = default;
+  Square(uint32_t _a) : a{_a} {}
 
-List::List(int _data) : count{1} {
-  first = new Node;
-  first->data = _data;
-  first->link = nullptr;
-  last = first;
-}
-
-List::List(const List &other) : count{other.count} {
-  if (other.first == nullptr) {
-    List();
-  } else {
-    Node *tmp_other_first = other.first;
-    while (tmp_other_first != nullptr) {
-      Node *new_node = new Node;
-      new_node->data = tmp_other_first->data;
-      new_node->link = nullptr;
-      if (first == nullptr) {
-        first = new_node;
-        last = new_node;
-      } else {
-        last->link = new_node;
-        last = new_node;
+  void calc_square() const {
+    long square = a * a;
+    std::cout << "The square area equal " << square << '\n';
+  }
+    
+  void draw() const {
+    for (size_t i = 0; i < a; ++i) {
+      std::cout << '*' << ' ';
+      for (size_t n = 0; n < a - 2; ++n) {
+        std::cout << ((i == 0 || i == (a - 1)) ? "* " : "  ");
       }
-      tmp_other_first = tmp_other_first->link;
+      std::cout << "*\n";
     }
   }
-}
 
-List::~List() {
-  while (first != nullptr) {
-    Node *tmp = first;
-    first = first->link;
-    delete tmp;
-  }
-}
+private:
+  uint32_t a{};
+};
 
-void List::push_back(int a) {
-  Node *new_node = new Node;
-  new_node->data = a;
-  new_node->link = nullptr;
-  if (first == nullptr) {
-    first = new_node;
-    last = new_node;
-  } else {
-    last->link = new_node;
-    last = new_node;
-  }
-  ++count;
-}
+class Rectangle : public Shape {
+public:
+  Rectangle() = default;
+  Rectangle(uint32_t a, uint32_t b) : l{a}, w{b} {}
 
-void List::push_front(int a) {
-  Node *new_node = new Node;
-  new_node->data = a;
-  new_node->link = first;
-  if (is_empty()) {
-    last = new_node;
+  void calc_square() const {
+    long square = l * w;
+    std::cout << "The rectangle area equal " << square << '\n';
   }
-  first = new_node;
-  ++count;
-}
+  void draw() const {
+    for (size_t i = 0; i < w; ++i) {
+      std::cout << '*' << ' ';
+      for (size_t n = 0; n < l - 2; ++n) {
+        std::cout << ((i == 0 || i == (w - 1)) ? "* " : "  ");
+      }
+      std::cout << "*\n";
+    }
+  }
 
-void List::pop_front() {
-  if (is_empty()) {
-    std::cout << "List is empty\n";
-    return;
-  }
-  Node *tmp = first;
-  first = first->link;
-  if (count == 1) {
-    last = nullptr;
-  }
-  delete tmp;
-  --count;
-}
+private:
+  uint32_t l{};
+  uint32_t w{};
+};
 
-int List::get_front() const {
-  if (is_empty()) {
-    std::cout << "List is empty\n";
-    return 0;
+class Triangle : public Shape {
+public:
+  class Invalid {};
+  Triangle(uint32_t _a, uint32_t _b, uint32_t _c) : a{_a}, b{_b}, c{_c} {
+    if ((a + b) <= c || (a + c) <= b || (b + c) <= a) {
+      throw Invalid{};
+    }
   }
-  return first->data;
-}
 
-int List::get_back() const {
-  if (is_empty()) {
-    std::cout << "List is empty\n";
-    return 0;
+  void calc_square() const {
+    long p = (a + b + c) / 2;
+    long square = std::pow((p * (p - a) * (p - b) * (p - c)), 0.5);
+    std::cout << "The triangle area equal " << square << '\n';
   }
-  return last->data;
-}
+    
+  void draw() const {
+    uint32_t max_side{};
+    if (a >= b && a >= c) {
+      max_side = a;
+    } else if (b >= c && b >= a) {
+      max_side = b;
+    } else {
+      max_side = c;
+    }
+    uint32_t half_side = max_side / 2 + 1;
+    for (size_t i = 0; i < half_side; ++i) {
+      for (size_t n = 0; n < half_side - i; ++n) {
+        std::cout << "  ";
+      }
+      std::cout << "*";
 
-void List::print() const {
-  if (is_empty()) {
-    std::cout << "List is empty\n";
-    return;
+      for (size_t k = max_side; k > (max_side - 2 * i); --k) {
+        if (i == half_side - 1) {
+          std::cout << "* ";
+        } else {
+          std::cout << "  ";
+        }
+      }
+      if (i != 0) {
+        std::cout << "*";
+      }
+      std::cout << '\n';
+    }
   }
-  Node *tmp = first;
-  while (tmp != nullptr) {
-    std::cout << tmp->data << ' ';
-    tmp = tmp->link;
-  }
-  std::cout << '\n';
+
+private:
+  uint32_t a{};
+  uint32_t b{};
+  uint32_t c{};
+};
+
+void work_with_shape(const Shape *sh) {
+  sh->calc_square();
+  sh->draw();
 }
 
 int main() {
 
-  List l{27};
+  Shape *sh = new Square{12};
+  work_with_shape(sh);
 
-  l.push_back(100);
-  l.push_back(120);
-  l.push_front(200);
-  l.push_front(250);
+  Rectangle rect{20, 12};
+  Shape *sh2 = &rect;
+  work_with_shape(sh2);
 
-  std::cout << "List l: ";
-  l.print();
-
-  std::cout << "Deleting first element l\n";
-  l.pop_front();
-  l.print();
-
-  std::cout << "Create list l2 copy l\n";
-  List l2{l};
-
-  std::cout << "First element l2 = " << l2.get_front() << '\n'
-            << "Last element l2 = " << l2.get_back() << '\n'
-            << "List l2: ";
-  l2.print();
-
-  std::cout << "List l2 has " << l2.size() << " elements\n";
+  Shape *sh3 = new Triangle{21, 17, 18};
+  work_with_shape(sh3);
 
   return 0;
 }
