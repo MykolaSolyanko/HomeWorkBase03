@@ -89,7 +89,7 @@ int partition(unsigned int* arr, size_t bgn, size_t end) {
     unsigned int pivot = arr[end];
     int i = (bgn - 1);
 
-    for (size_t j = bgn; j <= end - 1; j++) {
+    for (size_t j = bgn; j < end - 1; j++) {
         if (arr[j] < pivot) {
             i++;
             swap(&arr[i], &arr[j]);
@@ -110,7 +110,7 @@ int partition(char* arr, size_t bgn, size_t end) {
     char pivot = arr[end];
     int i = (bgn - 1);
 
-    for (size_t j = bgn; j <= end - 1; j++) {
+    for (size_t j = bgn; j < end - 1; j++) {
         if (arr[j] < pivot) {
             i++;
             swap(&arr[i], &arr[j]);
@@ -130,7 +130,7 @@ int partition(double* arr, size_t bgn, size_t end) {
     double pivot = arr[end];
     int i = (bgn - 1);
 
-    for (size_t j = bgn; j <= end - 1; j++) {
+    for (size_t j = bgn; j < end - 1; j++) {
         if (arr[j] < pivot) {
             i++;
             swap(&arr[i], &arr[j]);
