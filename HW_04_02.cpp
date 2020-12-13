@@ -7,76 +7,6 @@ static char             array_char[ARRAY_SIZE + 1];
 static uint32_t         array_uint32[ARRAY_SIZE];
 static double           array_double[ARRAY_SIZE];
 
-static void     sort_bubble      (double *array, size_t size,
-                                  std::function<bool(double a, double b)> comparator);
-static void     sort_bubble      (uint32_t *array, size_t size,
-                                  std::function<bool(uint32_t a, uint32_t b)> comparator);
-static void     sort_bubble      (char *array, size_t size,
-                                  std::function<bool(char a, char b)> comparator);
-static uint32_t rand_uint32      (uint32_t MIN, uint32_t MAX);
-static char     rand_char        (char MIN, char MAX);
-static bool     array_rand_string(char *array, size_t size);
-static bool     array_init_rand  (uint32_t *array, size_t size, uint32_t MIN,
-                                  uint32_t MAX);
-static bool     array_init_rand  (double *array, size_t size, double MIN, double MAX);
-static void     array_print      (const uint32_t *array, size_t size);
-static void     array_print      (const double *array, size_t size);
-
-int main() {
-  constexpr double MIN{10.0};
-  constexpr double MAX{1238.0};
-
-  array_init_rand(array_uint32, ARRAY_SIZE, static_cast<uint32_t>(MIN),
-                  static_cast<uint32_t>(MAX));
-
-  std::cout << std::endl
-            << "Unsorted Array of unsigned int values:" << std::endl;
-  array_print(array_uint32, ARRAY_SIZE);
-
-  sort_bubble(array_uint32, ARRAY_SIZE,
-              [](uint32_t a, uint32_t b) { return a > b; });
-  std::cout << std::endl << "Sorted Array of unsigned int values:" << std::endl;
-  array_print(array_uint32, ARRAY_SIZE);
-
-  array_init_rand(array_double, ARRAY_SIZE, MIN, MAX);
-  std::cout << std::endl << "Unsorted Array of double values:" << std::endl;
-  array_print(array_double, ARRAY_SIZE);
-
-  sort_bubble(array_double, ARRAY_SIZE,
-              [](double a, double b) { return a > b; });
-  std::cout << std::endl << "Sorted Array of double:" << std::endl;
-  array_print(array_double, ARRAY_SIZE);
-
-  array_rand_string(array_char, ARRAY_SIZE);
-  std::cout << std::endl << "Unsorted String:" << std::endl;
-  std::cout << array_char << std::endl;
-
-  sort_bubble(array_char, ARRAY_SIZE - 1, [](char a, char b) {
-    std::function<bool(char)> is_diget = [](char ch) {
-      return ch >= '0' && ch <= '9';
-    };
-    std::function<bool(char)> is_small = [](char ch) {
-      return ch >= 'a' && ch <= 'z';
-    };
-    std::function<bool(char)> is_big = [](char ch) {
-      return ch >= 'A' && ch <= 'Z';
-    };
-
-    a = is_diget(a) ? 3 : a;
-    a = is_small(a) ? 2 : a;
-    a = is_big(a) ? 1 : a;
-
-    b = is_diget(b) ? 3 : b;
-    b = is_small(b) ? 2 : b;
-    b = is_big(b) ? 1 : b;
-
-    return a > b;
-  });
-  std::cout << std::endl << "Sorted String:" << std::endl;
-  std::cout << array_char << std::endl;
-  return EXIT_SUCCESS;
-}
-
 static void sort_bubble(double *array, size_t size,
                         std::function<bool(double a, double b)> comparator) {
   if ((array == nullptr) || (size == 0)) {
@@ -233,4 +163,59 @@ static void array_print(const double *array, size_t size) {
     std::cout << array[i] << '\t';
   }
   std::cout << std::endl;
+}
+
+int main() {
+  constexpr double MIN{10.0};
+  constexpr double MAX{1238.0};
+
+  array_init_rand(array_uint32, ARRAY_SIZE, static_cast<uint32_t>(MIN),
+                  static_cast<uint32_t>(MAX));
+
+  std::cout << std::endl
+            << "Unsorted Array of unsigned int values:" << std::endl;
+  array_print(array_uint32, ARRAY_SIZE);
+
+  sort_bubble(array_uint32, ARRAY_SIZE,
+              [](uint32_t a, uint32_t b) { return a > b; });
+  std::cout << std::endl << "Sorted Array of unsigned int values:" << std::endl;
+  array_print(array_uint32, ARRAY_SIZE);
+
+  array_init_rand(array_double, ARRAY_SIZE, MIN, MAX);
+  std::cout << std::endl << "Unsorted Array of double values:" << std::endl;
+  array_print(array_double, ARRAY_SIZE);
+
+  sort_bubble(array_double, ARRAY_SIZE,
+              [](double a, double b) { return a > b; });
+  std::cout << std::endl << "Sorted Array of double:" << std::endl;
+  array_print(array_double, ARRAY_SIZE);
+
+  array_rand_string(array_char, ARRAY_SIZE);
+  std::cout << std::endl << "Unsorted String:" << std::endl;
+  std::cout << array_char << std::endl;
+
+  sort_bubble(array_char, ARRAY_SIZE - 1, [](char a, char b) {
+    std::function<bool(char)> is_diget = [](char ch) {
+      return ch >= '0' && ch <= '9';
+    };
+    std::function<bool(char)> is_small = [](char ch) {
+      return ch >= 'a' && ch <= 'z';
+    };
+    std::function<bool(char)> is_big = [](char ch) {
+      return ch >= 'A' && ch <= 'Z';
+    };
+
+    a = is_diget(a) ? 3 : a;
+    a = is_small(a) ? 2 : a;
+    a = is_big(a) ? 1 : a;
+
+    b = is_diget(b) ? 3 : b;
+    b = is_small(b) ? 2 : b;
+    b = is_big(b) ? 1 : b;
+
+    return a > b;
+  });
+  std::cout << std::endl << "Sorted String:" << std::endl;
+  std::cout << array_char << std::endl;
+  return EXIT_SUCCESS;
 }
