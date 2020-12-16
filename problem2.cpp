@@ -68,7 +68,6 @@ int main() {
   default:
     std::cout << "incorrect input\n";
     return -1;
-    break;
   }
 
   return 0;
