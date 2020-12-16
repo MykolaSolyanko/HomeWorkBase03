@@ -3,6 +3,8 @@
 
 class Shape {
 public:
+  virtual ~Shape() {}
+  
   virtual void calc_square() const = 0;
   virtual void draw() const = 0;
 };
@@ -122,6 +124,9 @@ int main() {
 
   Shape *sh3 = new Triangle{21, 17, 18};
   work_with_shape(sh3);
+  
+  delete sh3;
+  delete sh;
 
   return 0;
 }
