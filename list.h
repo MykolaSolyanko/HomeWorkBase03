@@ -17,6 +17,7 @@ template <class T> struct Node {
 template <class T> class T_List {
 public:
   // iterator functions are not implemented
+  ~T_List() { vClear(); };
   T First() const { return oFirstNode->Data; };
   T Last() const;
 
