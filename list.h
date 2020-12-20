@@ -15,6 +15,7 @@ struct Node {
 
 class C_List {
 public:
+  ~C_List() { vClear(); };
   // iterator functions are not implemented
   int First() { return oFirstNode->iData; };
   int Last();
